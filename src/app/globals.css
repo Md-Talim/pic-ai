@@ -3,7 +3,9 @@
 @import "tailwindcss/utilities";
 
 @layer base {
+  html,
   body {
+    height: 100%;
     font-family: var(--font-geist-sans);
   }
 }
