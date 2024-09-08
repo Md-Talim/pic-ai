@@ -9,13 +9,13 @@ import {
 import { Separator } from "@/components/ui/separator";
 import Logo from "@/features/editor/components/logo";
 import {
-  ChevronDown,
-  Cloud,
-  Download,
-  File,
-  MousePointerClick,
-  Redo,
-  Undo,
+  ChevronDownIcon,
+  CloudIcon,
+  DownloadIcon,
+  FileIcon,
+  MousePointerClickIcon,
+  RedoIcon,
+  UndoIcon,
 } from "lucide-react";
 
 const Navbar = () => {
@@ -28,13 +28,13 @@ const Navbar = () => {
           <DropdownMenuTrigger>
             <Button variant="ghost" size="sm">
               File
-              <ChevronDown className="size-4 ml-2" />
+              <ChevronDownIcon className="size-4 ml-2" />
             </Button>
           </DropdownMenuTrigger>
 
           <DropdownMenuContent>
             <DropdownMenuItem className="flex items-center gap-x-2">
-              <File className="size-6" />
+              <FileIcon className="size-6" />
               <div>
                 <p>Open</p>
                 <p className="text-muted-foreground">Open a JSON file</p>
@@ -47,24 +47,24 @@ const Navbar = () => {
 
         <Hint label="Select" side="bottom" sideOffset={10}>
           <Button variant="ghost" size="icon">
-            <MousePointerClick className="size-4" />
+            <MousePointerClickIcon className="size-4" />
           </Button>
         </Hint>
         <Hint label="Undo" side="bottom" sideOffset={10}>
           <Button variant="ghost" size="icon">
-            <Undo className="size-4" />
+            <UndoIcon className="size-4" />
           </Button>
         </Hint>
         <Hint label="Redo" side="bottom" sideOffset={10}>
           <Button variant="ghost" size="icon">
-            <Redo className="size-4" />
+            <RedoIcon className="size-4" />
           </Button>
         </Hint>
 
         <Separator orientation="vertical" className="mx-2" />
 
         <div className="flex items-center gap-x-2 text-muted-foreground">
-          <Cloud className="size-5" />
+          <CloudIcon className="size-5" />
           <p className="text-sm">Saved</p>
         </div>
 
@@ -73,12 +73,12 @@ const Navbar = () => {
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="sm">
                 Export
-                <Download className="size-4 ml-2" />
+                <DownloadIcon className="size-4 ml-2" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-60">
               <DropdownMenuItem className="flex items-center gap-x-2">
-                <File className="size-6" />
+                <FileIcon className="size-6" />
                 <div>
                   <p>JSON</p>
                   <p className="text-muted-foreground">
@@ -87,14 +87,14 @@ const Navbar = () => {
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem className="flex items-center gap-x-2">
-                <File className="size-6" />
+                <FileIcon className="size-6" />
                 <div>
                   <p>JPG</p>
                   <p className="text-muted-foreground">Best for printing</p>
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem className="flex items-center gap-x-2">
-                <File className="size-6" />
+                <FileIcon className="size-6" />
                 <div>
                   <p>PNG</p>
                   <p className="text-muted-foreground">
@@ -103,7 +103,7 @@ const Navbar = () => {
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem className="flex items-center gap-x-2">
-                <File className="size-6" />
+                <FileIcon className="size-6" />
                 <div>
                   <p>SVG</p>
                   <p className="text-muted-foreground">
