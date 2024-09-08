@@ -25,7 +25,7 @@ const Navbar = () => {
 
       <div className="w-full flex items-center gap-x-1 h-full">
         <DropdownMenu modal={false}>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm">
               File
               <ChevronDownIcon className="size-4 ml-2" />
