@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import Logo from "@/features/editor/components/logo";
+import { ActiveTool } from "@/features/editor/types";
+import { cn } from "@/lib/utils";
 import {
   ChevronDownIcon,
   CloudIcon,
@@ -18,7 +20,12 @@ import {
   UndoIcon,
 } from "lucide-react";
 
-const Navbar = () => {
+interface Props {
+  activeTool: ActiveTool;
+  onChangeActiveTool: (tool: ActiveTool) => void;
+}
+
+const Navbar = ({ activeTool, onChangeActiveTool }: Props) => {
   return (
     <nav className="flex gap-x-8 items-center p-4 h-16 w-full lg:pl-8 border-b">
       <Logo />
@@ -46,7 +53,12 @@ const Navbar = () => {
         <Separator orientation="vertical" className="mx-2" />
 
         <Hint label="Select" side="bottom" sideOffset={10}>
-          <Button variant="ghost" size="icon">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onChangeActiveTool("select")}
+            className={cn(activeTool === "select" && "bg-muted")}
+          >
             <MousePointerClickIcon className="size-4" />
           </Button>
         </Hint>
