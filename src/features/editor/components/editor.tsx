@@ -2,6 +2,7 @@
 
 import Footer from "@/features/editor/components/footer";
 import Navbar from "@/features/editor/components/navbar";
+import ShapeSidebar from "@/features/editor/components/shape-sidebar";
 import Sidebar from "@/features/editor/components/sidebar";
 import Toolbar from "@/features/editor/components/toolbar";
 import { useEditor } from "@/features/editor/hooks/use-editor";
@@ -55,6 +56,10 @@ const Editor = () => {
       />
       <div className="absolute flex w-full h-[calc(100%-64px)] top-16">
         <Sidebar
+          activeTool={activeTool}
+          onChangeActiveTool={handleChangeActiveToolbar}
+        />
+        <ShapeSidebar
           activeTool={activeTool}
           onChangeActiveTool={handleChangeActiveToolbar}
         />
