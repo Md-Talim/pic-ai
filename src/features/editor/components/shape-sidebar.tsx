@@ -1,7 +1,7 @@
 import ShapeTool from "@/features/editor/components/shape-tool";
 import ToolSidebarClose from "@/features/editor/components/tool-sidebar-close";
 import ToolSidebarHeader from "@/features/editor/components/tool-sidebar-header";
-import { ActiveTool } from "@/features/editor/types";
+import { ActiveTool, Editor } from "@/features/editor/types";
 import { cn } from "@/lib/utils";
 import {
   CircleIcon,
@@ -11,11 +11,12 @@ import {
 } from "lucide-react";
 
 interface Props {
+  editor: Editor | undefined;
   activeTool: ActiveTool;
   onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
-const ShapeSidebar = ({ activeTool, onChangeActiveTool }: Props) => {
+const ShapeSidebar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   const handleClose = () => {
     onChangeActiveTool("select");
   };
@@ -32,10 +33,10 @@ const ShapeSidebar = ({ activeTool, onChangeActiveTool }: Props) => {
         description="Add shapes to your canvas."
       />
       <div className="grid grid-cols-3 gap-4 p-4">
-        <ShapeTool icon={CircleIcon} onClick={() => {}} />
-        <ShapeTool icon={SquareIcon} onClick={() => {}} />
-        <ShapeTool icon={TriangleIcon} onClick={() => {}} />
-        <ShapeTool icon={DiamondIcon} onClick={() => {}} />
+        <ShapeTool icon={CircleIcon} onClick={() => editor?.addCircle()} />
+        <ShapeTool icon={SquareIcon} onClick={() => editor?.addRectangle()} />
+        <ShapeTool icon={TriangleIcon} onClick={() => editor?.addTriangle()} />
+        <ShapeTool icon={DiamondIcon} onClick={() => editor?.addDiamond()} />
       </div>
       <ToolSidebarClose onClose={handleClose} />
     </aside>
