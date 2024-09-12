@@ -24,8 +24,8 @@ const ShapeSidebar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   return (
     <aside
       className={cn(
-        "bg-white relative border-r h-full w-80 flex flex-col z-40",
-        activeTool === "shapes" ? "visible" : "hidden"
+        "relative z-40 flex h-full w-80 flex-col border-r bg-white",
+        activeTool === "shapes" ? "visible" : "hidden",
       )}
     >
       <ToolSidebarHeader

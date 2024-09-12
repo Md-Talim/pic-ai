@@ -53,7 +53,7 @@ const buildEditor = ({ canvas }: BuildEditorProps): Editor => {
           { x: WIDTH / 2, y: HEIGHT },
           { x: 0, y: HEIGHT / 2 },
         ],
-        { ...DIAMOND_OPTIONS }
+        { ...DIAMOND_OPTIONS },
       );
 
       addToCanvas(diamondShape);
@@ -116,7 +116,7 @@ export const useEditor = () => {
       setCanvas(initialCanvas);
       setContainer(initialContainer);
     },
-    []
+    [],
   );
 
   return { init, editor };

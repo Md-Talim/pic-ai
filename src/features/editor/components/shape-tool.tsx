@@ -9,7 +9,7 @@ interface Props {
 
 const ShapeTool = ({ onClick, icon: Icon, iconStyles }: Props) => {
   return (
-    <button onClick={onClick} className="aspect-square border rounded-md p-5">
+    <button onClick={onClick} className="aspect-square rounded-md border p-5">
       <Icon className={cn("h-full w-full", iconStyles)} />
     </button>
   );

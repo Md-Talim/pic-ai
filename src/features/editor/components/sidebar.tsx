@@ -16,7 +16,7 @@ interface Props {
 
 const Sidebar = ({ activeTool, onChangeActiveTool }: Props) => {
   return (
-    <aside className="w-24 border-r overflow-y-auto flex flex-col bg-white">
+    <aside className="flex w-24 flex-col overflow-y-auto border-r bg-white">
       <ul className="flex flex-col">
         <SidebarItem
           icon={LayoutTemplateIcon}

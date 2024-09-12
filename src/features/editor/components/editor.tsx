@@ -28,7 +28,7 @@ const Editor = () => {
 
       setActiveTool(tool);
     },
-    [activeTool]
+    [activeTool],
   );
 
   const { init, editor } = useEditor();
@@ -49,12 +49,12 @@ const Editor = () => {
   }, [init]);
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex h-full flex-col">
       <Navbar
         activeTool={activeTool}
         onChangeActiveTool={handleChangeActiveToolbar}
       />
-      <div className="absolute flex w-full h-[calc(100%-64px)] top-16">
+      <div className="absolute top-16 flex h-[calc(100%-64px)] w-full">
         <Sidebar
           activeTool={activeTool}
           onChangeActiveTool={handleChangeActiveToolbar}
@@ -64,10 +64,10 @@ const Editor = () => {
           activeTool={activeTool}
           onChangeActiveTool={handleChangeActiveToolbar}
         />
-        <main className="bg-muted flex-1 overflow-auto relative flex flex-col">
+        <main className="relative flex flex-1 flex-col overflow-auto bg-muted">
           <Toolbar />
           <div
-            className="flex-1 h-[calc(100%-120px)] bg-muted"
+            className="h-[calc(100%-120px)] flex-1 bg-muted"
             ref={containerRef}
           >
             <canvas ref={canvasRef} />

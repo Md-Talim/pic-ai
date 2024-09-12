@@ -27,15 +27,15 @@ interface Props {
 
 const Navbar = ({ activeTool, onChangeActiveTool }: Props) => {
   return (
-    <nav className="flex gap-x-8 items-center p-4 h-16 w-full lg:pl-8 border-b">
+    <nav className="flex h-16 w-full items-center gap-x-8 border-b p-4 lg:pl-8">
       <Logo />
 
-      <div className="w-full flex items-center gap-x-1 h-full">
+      <div className="flex h-full w-full items-center gap-x-1">
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm">
               File
-              <ChevronDownIcon className="size-4 ml-2" />
+              <ChevronDownIcon className="ml-2 size-4" />
             </Button>
           </DropdownMenuTrigger>
 
@@ -85,7 +85,7 @@ const Navbar = ({ activeTool, onChangeActiveTool }: Props) => {
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="sm">
                 Export
-                <DownloadIcon className="size-4 ml-2" />
+                <DownloadIcon className="ml-2 size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-60">
