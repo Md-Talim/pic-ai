@@ -1,5 +1,6 @@
 "use client";
 
+import FillColorSidebar from "@/features/editor/components/fill-color-sidebar";
 import Footer from "@/features/editor/components/footer";
 import Navbar from "@/features/editor/components/navbar";
 import ShapeSidebar from "@/features/editor/components/shape-sidebar";
@@ -64,8 +65,18 @@ const Editor = () => {
           activeTool={activeTool}
           onChangeActiveTool={handleChangeActiveToolbar}
         />
+        <FillColorSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={handleChangeActiveToolbar}
+        />
         <main className="relative flex flex-1 flex-col overflow-auto bg-muted">
-          <Toolbar />
+          <Toolbar
+            editor={editor}
+            activeTool={activeTool}
+            onChangeActiveTool={handleChangeActiveToolbar}
+            key={JSON.stringify(editor?.canvas.getActiveObject())}
+          />
           <div
             className="h-[calc(100%-120px)] flex-1 bg-muted"
             ref={containerRef}
