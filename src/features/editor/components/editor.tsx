@@ -14,7 +14,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const Editor = () => {
   const [activeTool, setActiveTool] = useState<ActiveTool>("select");
 
-  const handleChangeActiveToolbar = useCallback(
+  const handleChangeActiveTool = useCallback(
     (tool: ActiveTool) => {
       if (tool === activeTool) {
         return setActiveTool("select");
@@ -53,28 +53,28 @@ const Editor = () => {
     <div className="flex h-full flex-col">
       <Navbar
         activeTool={activeTool}
-        onChangeActiveTool={handleChangeActiveToolbar}
+        onChangeActiveTool={handleChangeActiveTool}
       />
       <div className="absolute top-16 flex h-[calc(100%-64px)] w-full">
         <Sidebar
           activeTool={activeTool}
-          onChangeActiveTool={handleChangeActiveToolbar}
+          onChangeActiveTool={handleChangeActiveTool}
         />
         <ShapeSidebar
           editor={editor}
           activeTool={activeTool}
-          onChangeActiveTool={handleChangeActiveToolbar}
+          onChangeActiveTool={handleChangeActiveTool}
         />
         <FillColorSidebar
           editor={editor}
           activeTool={activeTool}
-          onChangeActiveTool={handleChangeActiveToolbar}
+          onChangeActiveTool={handleChangeActiveTool}
         />
         <main className="relative flex flex-1 flex-col overflow-auto bg-muted">
           <Toolbar
             editor={editor}
             activeTool={activeTool}
-            onChangeActiveTool={handleChangeActiveToolbar}
+            onChangeActiveTool={handleChangeActiveTool}
             key={JSON.stringify(editor?.canvas.getActiveObject())}
           />
           <div
