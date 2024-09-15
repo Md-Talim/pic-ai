@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
-  const fillColor = editor?.fillColor;
+  const fillColor = editor?.getActiveFillColor();
 
   console.log(editor?.selectedObjects);
 

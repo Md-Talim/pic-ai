@@ -105,9 +105,9 @@ export type Editor = {
   addRectangle: () => void;
   addTriangle: () => void;
   addDiamond: () => void;
+  getActiveFillColor: () => string;
   canvas: fabric.Canvas;
   selectedObjects: fabric.Object[];
-  fillColor: string;
   strokeColor: string;
   strokeWidth: number;
 };

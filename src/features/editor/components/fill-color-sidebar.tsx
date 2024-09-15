@@ -15,7 +15,7 @@ const FillColorSidebar = ({
   activeTool,
   onChangeActiveTool,
 }: Props) => {
-  const defaultColorValue = editor?.fillColor || FILL_COLOR;
+  const defaultColorValue = editor?.getActiveFillColor() || FILL_COLOR;
 
   const handleClose = () => {
     onChangeActiveTool("select");

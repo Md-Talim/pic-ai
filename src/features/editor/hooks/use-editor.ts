@@ -126,9 +126,20 @@ const buildEditor = ({
 
       addToCanvas(diamondShape);
     },
+    getActiveFillColor: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return fillColor;
+      }
+
+      const value = selectedObject.get("fill") || fillColor;
+
+      // right now, gradients & patterns are not supported
+      return value as string;
+    },
     canvas,
     selectedObjects,
-    fillColor,
     strokeColor,
     strokeWidth,
   };
