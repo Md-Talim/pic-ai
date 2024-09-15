@@ -156,7 +156,6 @@ export const useEditor = () => {
 
   const editor = useMemo(() => {
     if (canvas) {
-      console.log(selectedObjects);
       return buildEditor({
         canvas,
         fillColor,
