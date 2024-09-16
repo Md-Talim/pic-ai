@@ -7,6 +7,7 @@ import {
   FILL_COLOR,
   RECTANGLE_OPTIONS,
   STROKE_COLOR,
+  STROKE_DASH_ARRAY,
   STROKE_WIDTH,
   TRIANGLE_OPTIONS,
 } from "@/features/editor/types";
@@ -21,10 +22,12 @@ const buildEditor = ({
   fillColor,
   strokeColor,
   strokeWidth,
+  strokeDashArray,
   selectedObjects,
   setFillColor,
   setStrokeColor,
   setStrokeWidth,
+  setStrokeDashArray,
 }: BuildEditorProps): Editor => {
   const getWorkspace = () => {
     return canvas.getObjects().find((object) => object.name === "clip");
@@ -72,6 +75,14 @@ const buildEditor = ({
       setStrokeWidth(newWidth);
       canvas.getActiveObjects().forEach((object) => {
         object.set({ strokeWidth: newWidth });
+      });
+
+      canvas.renderAll();
+    },
+    updateStrokeDashArray: (value: number[]) => {
+      setStrokeDashArray(value);
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ strokeDashArray: value });
       });
 
       canvas.renderAll();
@@ -161,6 +172,17 @@ const buildEditor = ({
 
       return value;
     },
+    getActiveStrokeDashArray: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return strokeDashArray;
+      }
+
+      const value = selectedObject.get("strokeDashArray") || strokeDashArray;
+
+      return value;
+    },
     canvas,
     selectedObjects,
   };
@@ -174,6 +196,8 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
   const [fillColor, setFillColor] = useState(FILL_COLOR);
   const [strokeColor, setStrokeColor] = useState(STROKE_COLOR);
   const [strokeWidth, setStrokeWidth] = useState(STROKE_WIDTH);
+  const [strokeDashArray, setStrokeDashArray] =
+    useState<number[]>(STROKE_DASH_ARRAY);
 
   const editor = useMemo(() => {
     if (canvas) {
@@ -182,15 +206,24 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
         fillColor,
         strokeColor,
         strokeWidth,
+        strokeDashArray,
         selectedObjects,
         setFillColor,
         setStrokeColor,
         setStrokeWidth,
+        setStrokeDashArray,
       });
     }
 
     return undefined;
-  }, [canvas, fillColor, selectedObjects, strokeColor, strokeWidth]);
+  }, [
+    canvas,
+    fillColor,
+    selectedObjects,
+    strokeColor,
+    strokeDashArray,
+    strokeWidth,
+  ]);
 
   useAutoResize({ canvas, container });
   useCanvasEvents({ canvas, setSelectedObjects, clearSelectionCallback });
