@@ -6,6 +6,7 @@ import Footer from "@/features/editor/components/footer";
 import Navbar from "@/features/editor/components/navbar";
 import ShapeSidebar from "@/features/editor/components/shape-sidebar";
 import Sidebar from "@/features/editor/components/sidebar";
+import StrokeWidthSidebar from "@/features/editor/components/stroke-width-sidebar";
 import Toolbar from "@/features/editor/components/toolbar";
 import { useEditor } from "@/features/editor/hooks/use-editor";
 import { ActiveTool } from "@/features/editor/types";
@@ -90,6 +91,11 @@ const Editor = () => {
           onChangeActiveTool={handleChangeActiveTool}
         />
         <BorderColorSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={handleChangeActiveTool}
+        />
+        <StrokeWidthSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={handleChangeActiveTool}

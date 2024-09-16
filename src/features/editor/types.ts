@@ -107,9 +107,9 @@ export type Editor = {
   addDiamond: () => void;
   getActiveFillColor: () => string;
   getActiveStrokeColor: () => string;
+  getActiveStrokeWidth: () => number;
   canvas: fabric.Canvas;
   selectedObjects: fabric.Object[];
-  strokeWidth: number;
 };
 
 export interface EditorHookParams {
