@@ -111,3 +111,7 @@ export type Editor = {
   strokeColor: string;
   strokeWidth: number;
 };
+
+export interface EditorHookParams {
+  clearSelectionCallback?: () => void;
+}

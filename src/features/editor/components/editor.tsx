@@ -32,7 +32,25 @@ const Editor = () => {
     [activeTool],
   );
 
-  const { init, editor } = useEditor();
+  const handleClearSelection = useCallback(() => {
+    const selectionDependentTools = [
+      "fill",
+      "font",
+      "filter",
+      "opacity",
+      "remove-bg",
+      "stroke-color",
+      "stroke-width",
+    ];
+
+    if (selectionDependentTools.includes(activeTool)) {
+      setActiveTool("select");
+    }
+  }, [activeTool]);
+
+  const { init, editor } = useEditor({
+    clearSelectionCallback: handleClearSelection,
+  });
   const canvasRef = useRef(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
