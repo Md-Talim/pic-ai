@@ -21,7 +21,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
 
   return (
     <div className="z-[49] flex h-14 w-full shrink-0 items-center gap-x-2 overflow-x-auto border-b bg-white p-2">
-      <div className="flex items-center justify-center">
+      <div className="flex h-full items-center justify-center">
         <Hint label="Color" side="bottom" sideOffset={5}>
           <Button
             variant="ghost"
@@ -38,6 +38,8 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
             />
           </Button>
         </Hint>
+      </div>
+      <div className="flex h-full items-center justify-center">
         <Hint label="Border Color" side="bottom" sideOffset={5}>
           <Button
             variant="ghost"
