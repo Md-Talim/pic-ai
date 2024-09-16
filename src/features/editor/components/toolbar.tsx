@@ -11,6 +11,7 @@ interface Props {
 
 const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   const fillColor = editor?.getActiveFillColor();
+  const borderColor = editor?.getActiveStrokeColor();
 
   if (editor?.selectedObjects.length === 0) {
     return (
@@ -34,6 +35,19 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
                 backgroundColor:
                   typeof fillColor === "string" ? fillColor : "black",
               }}
+            />
+          </Button>
+        </Hint>
+        <Hint label="Border Color" side="bottom" sideOffset={5}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onChangeActiveTool("stroke-color")}
+            className={cn(activeTool === "stroke-color" && "bg-neutral-100")}
+          >
+            <div
+              className="size-4 rounded-sm border"
+              style={{ borderColor: borderColor }}
             />
           </Button>
         </Hint>
