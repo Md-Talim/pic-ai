@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ActiveTool, Editor } from "@/features/editor/types";
 import { cn } from "@/lib/utils";
 import { BorderWidthIcon } from "@radix-ui/react-icons";
+import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 
 interface Props {
   editor: Editor | undefined;
@@ -64,6 +65,28 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
             className={cn(activeTool === "stroke-width" && "bg-neutral-100")}
           >
             <BorderWidthIcon className="size-4" />
+          </Button>
+        </Hint>
+      </div>
+      <div className="flex h-full items-center justify-center">
+        <Hint label="Bring Forward" side="bottom" sideOffset={5}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => editor?.bringForward()}
+          >
+            <ArrowUpIcon className="size-4" />
+          </Button>
+        </Hint>
+      </div>
+      <div className="flex h-full items-center justify-center">
+        <Hint label="Send Backwards" side="bottom" sideOffset={5}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => editor?.sendBackwards()}
+          >
+            <ArrowDownIcon className="size-4" />
           </Button>
         </Hint>
       </div>
