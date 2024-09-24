@@ -107,6 +107,7 @@ export type Editor = {
   updateStrokeColor: (color: string) => void;
   updateStrokeWidth: (width: number) => void;
   updateStrokeDashArray: (value: number[]) => void;
+  updateOpacity: (newOpacity: number) => void;
   addCircle: () => void;
   addRectangle: () => void;
   addTriangle: () => void;
@@ -115,6 +116,7 @@ export type Editor = {
   getActiveStrokeColor: () => string;
   getActiveStrokeWidth: () => number;
   getActiveStrokeDashArray: () => number[];
+  getActiveOpacity: () => number;
   canvas: fabric.Canvas;
   selectedObjects: fabric.Object[];
 };

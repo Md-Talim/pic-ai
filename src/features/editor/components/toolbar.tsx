@@ -2,7 +2,7 @@ import Hint from "@/components/hint";
 import { Button } from "@/components/ui/button";
 import { ActiveTool, Editor } from "@/features/editor/types";
 import { cn } from "@/lib/utils";
-import { BorderWidthIcon } from "@radix-ui/react-icons";
+import { BorderWidthIcon, TransparencyGridIcon } from "@radix-ui/react-icons";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 
 interface Props {
@@ -87,6 +87,18 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
             onClick={() => editor?.sendBackwards()}
           >
             <ArrowDownIcon className="size-4" />
+          </Button>
+        </Hint>
+      </div>
+      <div className="flex h-full items-center justify-center">
+        <Hint label="Opacity" side="bottom" sideOffset={5}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onChangeActiveTool("opacity")}
+            className={cn(activeTool === "opacity" && "bg-neutral-100")}
+          >
+            <TransparencyGridIcon className="size-4" />
           </Button>
         </Hint>
       </div>
