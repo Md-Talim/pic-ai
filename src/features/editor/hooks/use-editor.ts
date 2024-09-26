@@ -9,6 +9,7 @@ import {
   STROKE_COLOR,
   STROKE_DASH_ARRAY,
   STROKE_WIDTH,
+  TEXT_OPTIONS,
   TRIANGLE_OPTIONS,
 } from "@/features/editor/types";
 import { isTextType } from "@/features/editor/utils";
@@ -113,6 +114,15 @@ const buildEditor = ({
       });
 
       canvas.renderAll();
+    },
+    addText: (value, options) => {
+      const textObject = new fabric.Textbox(value, {
+        ...TEXT_OPTIONS,
+        fill: fillColor,
+        ...options,
+      });
+
+      addToCanvas(textObject);
     },
     addCircle: () => {
       const circleShape = new fabric.Circle({

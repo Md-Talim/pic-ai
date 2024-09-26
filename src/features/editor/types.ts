@@ -1,4 +1,5 @@
 import { fabric } from "fabric";
+import { ITextboxOptions } from "fabric/fabric-impl";
 import material from "material-colors";
 
 export const colors = [
@@ -44,6 +45,16 @@ export const FILL_COLOR = "rgba(0,0,0,1)";
 export const STROKE_COLOR = "rgba(0,0,0,1)";
 export const STROKE_WIDTH = 2;
 export const STROKE_DASH_ARRAY = [];
+export const FONT_SIZE = 32;
+export const fONT_FAMILY = "Inter";
+
+export const TEXT_OPTIONS = {
+  left: 100,
+  top: 100,
+  fill: FILL_COLOR,
+  fontSize: FONT_SIZE,
+  fontFamily: fONT_FAMILY,
+};
 
 export const CIRCLE_OPTIONS = {
   radius: 225,
@@ -108,6 +119,7 @@ export type Editor = {
   updateStrokeWidth: (width: number) => void;
   updateStrokeDashArray: (value: number[]) => void;
   updateOpacity: (newOpacity: number) => void;
+  addText: (value: string, options?: ITextboxOptions) => void;
   addCircle: () => void;
   addRectangle: () => void;
   addTriangle: () => void;
