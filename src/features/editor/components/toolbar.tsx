@@ -15,6 +15,7 @@ interface Props {
 const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   const fillColor = editor?.getActiveFillColor();
   const borderColor = editor?.getActiveStrokeColor();
+  const fontFamily = editor?.getActiveFont();
 
   if (editor?.selectedObjects.length === 0) {
     return (
@@ -27,6 +28,23 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
 
   return (
     <div className="z-[49] flex h-14 w-full shrink-0 items-center gap-x-2 overflow-x-auto border-b bg-white p-2">
+      {isText && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Border Color" side="bottom" sideOffset={5}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => onChangeActiveTool("font")}
+              className={cn(
+                "w-auto px-2 text-sm",
+                activeTool === "font" && "bg-neutral-100",
+              )}
+            >
+              <span className="w-28 truncate">{fontFamily}</span>
+            </Button>
+          </Hint>
+        </div>
+      )}
       <div className="flex h-full items-center justify-center">
         <Hint label="Color" side="bottom" sideOffset={5}>
           <Button

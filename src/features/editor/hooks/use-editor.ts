@@ -5,6 +5,7 @@ import {
   Editor,
   EditorHookParams,
   FILL_COLOR,
+  FONT_FAMILY,
   RECTANGLE_OPTIONS,
   STROKE_COLOR,
   STROKE_DASH_ARRAY,
@@ -25,6 +26,8 @@ const buildEditor = ({
   strokeWidth,
   strokeDashArray,
   selectedObjects,
+  fontFamily,
+  setFontFamily,
   setFillColor,
   setStrokeColor,
   setStrokeWidth,
@@ -115,6 +118,16 @@ const buildEditor = ({
 
       canvas.renderAll();
     },
+    updateFontFamily: (newFontFamily: string) => {
+      setFontFamily(newFontFamily);
+      canvas.getActiveObjects().forEach((object) => {
+        if (isTextType(object.type)) {
+          object.set({ fontFamily: newFontFamily });
+        }
+      });
+
+      canvas.renderAll();
+    },
     addText: (value, options) => {
       const textObject = new fabric.Textbox(value, {
         ...TEXT_OPTIONS,
@@ -174,6 +187,17 @@ const buildEditor = ({
       );
 
       addToCanvas(diamondShape);
+    },
+    getActiveFont: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return fontFamily;
+      }
+
+      const activeFont = selectedObject.get("fontFamily") || fontFamily;
+
+      return activeFont;
     },
     getActiveFillColor: () => {
       const selectedObject = selectedObjects[0];
@@ -241,6 +265,7 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [selectedObjects, setSelectedObjects] = useState<fabric.Object[]>([]);
 
+  const [fontFamily, setFontFamily] = useState(FONT_FAMILY);
   const [fillColor, setFillColor] = useState(FILL_COLOR);
   const [strokeColor, setStrokeColor] = useState(STROKE_COLOR);
   const [strokeWidth, setStrokeWidth] = useState(STROKE_WIDTH);
@@ -255,6 +280,8 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
         strokeColor,
         strokeWidth,
         strokeDashArray,
+        fontFamily,
+        setFontFamily,
         selectedObjects,
         setFillColor,
         setStrokeColor,
@@ -267,6 +294,7 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
   }, [
     canvas,
     fillColor,
+    fontFamily,
     selectedObjects,
     strokeColor,
     strokeDashArray,
