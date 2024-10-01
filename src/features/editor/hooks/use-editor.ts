@@ -6,6 +6,7 @@ import {
   EditorHookParams,
   FILL_COLOR,
   FONT_FAMILY,
+  FONT_WEIGHT,
   RECTANGLE_OPTIONS,
   STROKE_COLOR,
   STROKE_DASH_ARRAY,
@@ -122,8 +123,17 @@ const buildEditor = ({
       setFontFamily(newFontFamily);
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
+          // @ts-expect-error, Faulty TS library, fontFamily exists
           object.set({ fontFamily: newFontFamily });
         }
+      });
+
+      canvas.renderAll();
+    },
+    updateFontWeight: (newFontWeight: number) => {
+      canvas.getActiveObjects().forEach((object) => {
+        // @ts-expect-error, Faulty TS library, fontWeight exists
+        object.set({ fontWeight: newFontWeight });
       });
 
       canvas.renderAll();
@@ -195,9 +205,22 @@ const buildEditor = ({
         return fontFamily;
       }
 
+      // @ts-expect-error, Faulty TS library, fontFamily exists.
       const activeFont = selectedObject.get("fontFamily") || fontFamily;
 
       return activeFont;
+    },
+    getActiveFontWeight: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return FONT_WEIGHT;
+      }
+
+      // @ts-expect-error, Faulty TS library, fontWeight exists.
+      const fontWeight = selectedObject.get("fontWeight") || FONT_WEIGHT;
+
+      return fontWeight;
     },
     getActiveFillColor: () => {
       const selectedObject = selectedObjects[0];

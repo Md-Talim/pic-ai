@@ -67,14 +67,15 @@ export const STROKE_COLOR = "rgba(0,0,0,1)";
 export const STROKE_WIDTH = 2;
 export const STROKE_DASH_ARRAY = [];
 export const FONT_SIZE = 32;
-export const fONT_FAMILY = "Inter";
+export const FONT_FAMILY = "Inter";
+export const FONT_WEIGHT = 400;
 
 export const TEXT_OPTIONS = {
   left: 100,
   top: 100,
   fill: FILL_COLOR,
   fontSize: FONT_SIZE,
-  fontFamily: fONT_FAMILY,
+  fontFamily: FONT_FAMILY,
 };
 
 export const CIRCLE_OPTIONS = {
@@ -143,12 +144,14 @@ export type Editor = {
   updateStrokeDashArray: (value: number[]) => void;
   updateOpacity: (newOpacity: number) => void;
   updateFontFamily: (newFontFamily: string) => void;
+  updateFontWeight: (newFontWeight: number) => voidl;
   addText: (value: string, options?: ITextboxOptions) => void;
   addCircle: () => void;
   addRectangle: () => void;
   addTriangle: () => void;
   addDiamond: () => void;
   getActiveFont: () => string;
+  getActiveFontWeight: () => number;
   getActiveFillColor: () => string;
   getActiveStrokeColor: () => string;
   getActiveStrokeWidth: () => number;
