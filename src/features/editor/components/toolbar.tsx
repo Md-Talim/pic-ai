@@ -59,12 +59,11 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
     );
   }
 
+  const selectedObject = editor?.selectedObjects[0];
   const selectedObjectType = editor?.selectedObjects[0].type;
   const isText = isTextType(selectedObjectType);
 
   const toggleBold = () => {
-    const selectedObject = editor?.selectedObjects[0];
-
     if (!selectedObject) {
       return;
     }
@@ -78,8 +77,6 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   };
 
   const toggleItalic = () => {
-    const selectedObject = editor?.selectedObjects[0];
-
     if (!selectedObject) {
       return;
     }
@@ -94,8 +91,6 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   };
 
   const toggleUnderline = () => {
-    const selectedObject = editor?.selectedObjects[0];
-
     if (!selectedObject) {
       return;
     }
@@ -109,9 +104,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   };
 
   const toggleStrikethrough = () => {
-    const selectedobject = editor?.selectedObjects[0];
-
-    if (!selectedobject) {
+    if (!selectedObject) {
       return;
     }
 
@@ -124,9 +117,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   };
 
   const handleChangeTextAlign = (alignValue: TextAlign) => {
-    const selectedobject = editor?.selectedObjects[0];
-
-    if (!selectedobject) {
+    if (!selectedObject) {
       return;
     }
 
@@ -138,6 +129,10 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   };
 
   const handleFontSizeChange = (newFontSize: number) => {
+    if (!selectedObject) {
+      return;
+    }
+
     editor?.updateFontSize(newFontSize);
     setProperties((current) => ({
       ...current,
