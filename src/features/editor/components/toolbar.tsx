@@ -4,7 +4,7 @@ import { ActiveTool, Editor, FONT_WEIGHT } from "@/features/editor/types";
 import { isTextType } from "@/features/editor/utils";
 import { cn } from "@/lib/utils";
 import { BorderWidthIcon, TransparencyGridIcon } from "@radix-ui/react-icons";
-import { ArrowDownIcon, ArrowUpIcon, BoldIcon } from "lucide-react";
+import { ArrowDownIcon, ArrowUpIcon, BoldIcon, ItalicIcon } from "lucide-react";
 import { useState } from "react";
 
 interface Props {
@@ -14,13 +14,18 @@ interface Props {
 }
 
 const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
-  const fillColor = editor?.getActiveFillColor();
-  const borderColor = editor?.getActiveStrokeColor();
-  const fontFamily = editor?.getActiveFont();
+  const initialFillColor = editor?.getActiveFillColor();
+  const initialBorderColor = editor?.getActiveStrokeColor();
+  const initialFontFamily = editor?.getActiveFont();
   const initialFontWeight = editor?.getActiveFontWeight() || FONT_WEIGHT;
+  const initialFontStyle = editor?.getActiveFontStyle();
 
   const [properties, setProperties] = useState({
+    fillColor: initialFillColor,
+    borderColor: initialBorderColor,
+    fontFamily: initialFontFamily,
     fontWeight: initialFontWeight,
+    fontStyle: initialFontStyle,
   });
 
   if (editor?.selectedObjects.length === 0) {
@@ -47,6 +52,22 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
     }));
   };
 
+  const toggleItalic = () => {
+    const selectedObject = editor?.selectedObjects[0];
+
+    if (!selectedObject) {
+      return;
+    }
+
+    const isItalic = properties.fontStyle === "italic";
+    const newFontStyle = isItalic ? "normal" : "italic";
+    editor.updateFontStyle(newFontStyle);
+    setProperties((current) => ({
+      ...current,
+      fontStyle: newFontStyle,
+    }));
+  };
+
   return (
     <div className="z-[49] flex h-14 w-full shrink-0 items-center gap-x-2 overflow-x-auto border-b bg-white p-2">
       {isText && (
@@ -61,7 +82,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
                 activeTool === "font" && "bg-neutral-100",
               )}
             >
-              <span className="w-28 truncate">{fontFamily}</span>
+              <span className="w-28 truncate">{properties.fontFamily}</span>
             </Button>
           </Hint>
         </div>
@@ -80,6 +101,22 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
           </Hint>
         </div>
       )}
+      {isText && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Border Color" side="bottom" sideOffset={5}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleItalic}
+              className={cn(
+                properties.fontStyle === "italic" && "bg-neutral-100",
+              )}
+            >
+              <ItalicIcon className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
       <div className="flex h-full items-center justify-center">
         <Hint label="Color" side="bottom" sideOffset={5}>
           <Button
@@ -90,10 +127,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
           >
             <div
               className="size-4 rounded-sm border"
-              style={{
-                backgroundColor:
-                  typeof fillColor === "string" ? fillColor : "black",
-              }}
+              style={{ backgroundColor: properties.fillColor }}
             />
           </Button>
         </Hint>
@@ -109,7 +143,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
             >
               <div
                 className="size-4 rounded-sm border"
-                style={{ borderColor: borderColor }}
+                style={{ borderColor: properties.borderColor }}
               />
             </Button>
           </Hint>

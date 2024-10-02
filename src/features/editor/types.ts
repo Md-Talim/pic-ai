@@ -135,6 +135,8 @@ export type BuildEditorProps = {
   setStrokeDashArray: (values: number[]) => void;
 };
 
+export type FontStyles = "normal" | "italic";
+
 export type Editor = {
   bringForward: () => void;
   sendBackwards: () => void;
@@ -144,7 +146,8 @@ export type Editor = {
   updateStrokeDashArray: (value: number[]) => void;
   updateOpacity: (newOpacity: number) => void;
   updateFontFamily: (newFontFamily: string) => void;
-  updateFontWeight: (newFontWeight: number) => voidl;
+  updateFontWeight: (newFontWeight: number) => void;
+  updateFontStyle: (newStyle: FontStyles) => void;
   addText: (value: string, options?: ITextboxOptions) => void;
   addCircle: () => void;
   addRectangle: () => void;
@@ -152,6 +155,7 @@ export type Editor = {
   addDiamond: () => void;
   getActiveFont: () => string;
   getActiveFontWeight: () => number;
+  getActiveFontStyle: () => FontStyles;
   getActiveFillColor: () => string;
   getActiveStrokeColor: () => string;
   getActiveStrokeWidth: () => number;

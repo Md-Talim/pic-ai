@@ -138,6 +138,14 @@ const buildEditor = ({
 
       canvas.renderAll();
     },
+    updateFontStyle: (newFontStyle) => {
+      canvas.getActiveObjects().forEach((object) => {
+        // @ts-expect-error, Faulty TS library, fontStyle exists
+        object.set({ fontStyle: newFontStyle });
+      });
+
+      canvas.renderAll();
+    },
     addText: (value, options) => {
       const textObject = new fabric.Textbox(value, {
         ...TEXT_OPTIONS,
@@ -221,6 +229,18 @@ const buildEditor = ({
       const fontWeight = selectedObject.get("fontWeight") || FONT_WEIGHT;
 
       return fontWeight;
+    },
+    getActiveFontStyle: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return "normal";
+      }
+
+      // @ts-expect-error, Faulty TS library, fontStyle exists.
+      const fontStyle = selectedObject.get("fontStyle") || "normal";
+
+      return fontStyle;
     },
     getActiveFillColor: () => {
       const selectedObject = selectedObjects[0];
