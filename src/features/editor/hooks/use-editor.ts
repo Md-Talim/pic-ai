@@ -228,6 +228,30 @@ const buildEditor = ({
 
       return value;
     },
+    getStrikethroughState: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return false;
+      }
+
+      // @ts-expect-error, faulty TS library: linethrough exists.
+      const hasLinethrough = selectedObject.get("linethrough");
+
+      return !!hasLinethrough;
+    },
+    getUnderlineState: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return false;
+      }
+
+      // @ts-expect-error, faulty TS library: underline exists.
+      const hasUnderline = selectedObject.get("underline");
+
+      return !!hasUnderline;
+    },
     updateFillColor: (newFillColor: string) => {
       setFillColor(newFillColor);
       canvas.getActiveObjects().forEach((object) => {
@@ -247,10 +271,26 @@ const buildEditor = ({
 
       canvas.renderAll();
     },
+    updateFontStrikethrough: (strikethroughState: boolean) => {
+      canvas.getActiveObjects().forEach((object) => {
+        // @ts-expect-error, Faulty TS library, linethrough exists
+        object.set({ linethrough: strikethroughState });
+      });
+
+      canvas.renderAll();
+    },
     updateFontStyle: (newFontStyle: FontStyles) => {
       canvas.getActiveObjects().forEach((object) => {
         // @ts-expect-error, Faulty TS library, fontStyle exists
         object.set({ fontStyle: newFontStyle });
+      });
+
+      canvas.renderAll();
+    },
+    updateFontUnderline: (underlineState: boolean) => {
+      canvas.getActiveObjects().forEach((object) => {
+        // @ts-expect-error, Faulty TS library, underline exists
+        object.set({ underline: underlineState });
       });
 
       canvas.renderAll();

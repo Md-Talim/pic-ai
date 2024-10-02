@@ -4,7 +4,14 @@ import { ActiveTool, Editor, FONT_WEIGHT } from "@/features/editor/types";
 import { isTextType } from "@/features/editor/utils";
 import { cn } from "@/lib/utils";
 import { BorderWidthIcon, TransparencyGridIcon } from "@radix-ui/react-icons";
-import { ArrowDownIcon, ArrowUpIcon, BoldIcon, ItalicIcon } from "lucide-react";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  BoldIcon,
+  ItalicIcon,
+  StrikethroughIcon,
+  UnderlineIcon,
+} from "lucide-react";
 import { useState } from "react";
 
 interface Props {
@@ -19,6 +26,8 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   const initialFontFamily = editor?.getActiveFont();
   const initialFontWeight = editor?.getActiveFontWeight() || FONT_WEIGHT;
   const initialFontStyle = editor?.getActiveFontStyle();
+  const initialStrikethroughState = editor?.getStrikethroughState();
+  const initialUnderlineState = editor?.getUnderlineState();
 
   const [properties, setProperties] = useState({
     fillColor: initialFillColor,
@@ -26,6 +35,8 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
     fontFamily: initialFontFamily,
     fontWeight: initialFontWeight,
     fontStyle: initialFontStyle,
+    isStrikethrough: initialStrikethroughState,
+    isUnderline: initialUnderlineState,
   });
 
   if (editor?.selectedObjects.length === 0) {
@@ -65,6 +76,36 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
     setProperties((current) => ({
       ...current,
       fontStyle: newFontStyle,
+    }));
+  };
+
+  const toggleUnderline = () => {
+    const selectedObject = editor?.selectedObjects[0];
+
+    if (!selectedObject) {
+      return;
+    }
+
+    const newUnderlineState = !properties.isUnderline;
+    editor.updateFontUnderline(newUnderlineState);
+    setProperties((current) => ({
+      ...current,
+      isUnderline: newUnderlineState,
+    }));
+  };
+
+  const toggleStrikethrough = () => {
+    const selectedObject = editor?.selectedObjects[0];
+
+    if (!selectedObject) {
+      return;
+    }
+
+    const newStrikethroghState = !properties.isStrikethrough;
+    editor.updateFontStrikethrough(newStrikethroghState);
+    setProperties((current) => ({
+      ...current,
+      isStrikethrough: newStrikethroghState,
     }));
   };
 
@@ -113,6 +154,34 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
               )}
             >
               <ItalicIcon className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
+      {isText && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Underline" side="bottom" sideOffset={5}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleUnderline}
+              className={cn(properties.isUnderline && "bg-neutral-100")}
+            >
+              <UnderlineIcon className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
+      {isText && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Strike Through" side="bottom" sideOffset={5}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleStrikethrough}
+              className={cn(properties.isStrikethrough && "bg-neutral-100")}
+            >
+              <StrikethroughIcon className="size-4" />
             </Button>
           </Hint>
         </div>

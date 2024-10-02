@@ -153,11 +153,15 @@ export type Editor = {
   getActiveStrokeColor: () => string;
   getActiveStrokeDashArray: () => number[];
   getActiveStrokeWidth: () => number;
+  getStrikethroughState: () => boolean;
+  getUnderlineState: () => boolean;
   selectedObjects: fabric.Object[];
   sendBackwards: () => void;
   updateFillColor: (newFillColor: string) => void;
   updateFontFamily: (newFontFamily: string) => void;
+  updateFontStrikethrough: (strikethroughState: boolean) => void;
   updateFontStyle: (newFontStyle: FontStyles) => void;
+  updateFontUnderline: (underlineState: boolean) => void;
   updateFontWeight: (newFontWeight: number) => void;
   updateOpacity: (newOpacity: number) => void;
   updateStrokeColor: (newStorkeColor: string) => void;
