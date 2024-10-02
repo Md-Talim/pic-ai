@@ -1,10 +1,18 @@
 import Hint from "@/components/hint";
 import { Button } from "@/components/ui/button";
-import { ActiveTool, Editor, FONT_WEIGHT } from "@/features/editor/types";
+import {
+  ActiveTool,
+  Editor,
+  FONT_WEIGHT,
+  TextAlign,
+} from "@/features/editor/types";
 import { isTextType } from "@/features/editor/utils";
 import { cn } from "@/lib/utils";
 import { BorderWidthIcon, TransparencyGridIcon } from "@radix-ui/react-icons";
 import {
+  AlignCenterIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
   ArrowDownIcon,
   ArrowUpIcon,
   BoldIcon,
@@ -28,6 +36,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   const initialFontStyle = editor?.getActiveFontStyle();
   const initialStrikethroughState = editor?.getStrikethroughState();
   const initialUnderlineState = editor?.getUnderlineState();
+  const initialTextAlign = editor?.getActiveTextAlign();
 
   const [properties, setProperties] = useState({
     fillColor: initialFillColor,
@@ -37,6 +46,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
     fontStyle: initialFontStyle,
     isStrikethrough: initialStrikethroughState,
     isUnderline: initialUnderlineState,
+    textAlign: initialTextAlign,
   });
 
   if (editor?.selectedObjects.length === 0) {
@@ -95,9 +105,9 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   };
 
   const toggleStrikethrough = () => {
-    const selectedObject = editor?.selectedObjects[0];
+    const selectedobject = editor?.selectedObjects[0];
 
-    if (!selectedObject) {
+    if (!selectedobject) {
       return;
     }
 
@@ -106,6 +116,20 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
     setProperties((current) => ({
       ...current,
       isStrikethrough: newStrikethroghState,
+    }));
+  };
+
+  const handleChangeTextAlign = (alignValue: TextAlign) => {
+    const selectedobject = editor?.selectedObjects[0];
+
+    if (!selectedobject) {
+      return;
+    }
+
+    editor.updateTextAlign(alignValue);
+    setProperties((current) => ({
+      ...current,
+      textAlign: alignValue,
     }));
   };
 
@@ -182,6 +206,54 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
               className={cn(properties.isStrikethrough && "bg-neutral-100")}
             >
               <StrikethroughIcon className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
+      {isText && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Align Left" side="bottom" sideOffset={5}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handleChangeTextAlign("left")}
+              className={cn(
+                properties.textAlign === "left" && "bg-neutral-100",
+              )}
+            >
+              <AlignLeftIcon className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
+      {isText && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Align Center" side="bottom" sideOffset={5}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handleChangeTextAlign("center")}
+              className={cn(
+                properties.textAlign === "center" && "bg-neutral-100",
+              )}
+            >
+              <AlignCenterIcon className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
+      {isText && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Align Right" side="bottom" sideOffset={5}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => handleChangeTextAlign("right")}
+              className={cn(
+                properties.textAlign === "right" && "bg-neutral-100",
+              )}
+            >
+              <AlignRightIcon className="size-4" />
             </Button>
           </Hint>
         </div>

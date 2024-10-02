@@ -13,6 +13,7 @@ import {
   STROKE_DASH_ARRAY,
   STROKE_WIDTH,
   TEXT_OPTIONS,
+  TextAlign,
   TRIANGLE_OPTIONS,
 } from "@/features/editor/types";
 import { isTextType } from "@/features/editor/utils";
@@ -184,6 +185,18 @@ const buildEditor = ({
 
       return fontWeight;
     },
+    getActiveTextAlign: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return "left";
+      }
+
+      // @ts-expect-error, Faulty TS library, textAlign exists.
+      const alignValue = selectedObject.get("textAlign") || "left";
+
+      return alignValue;
+    },
     getActiveOpacity: () => {
       const selectedObject = selectedObjects[0];
 
@@ -299,6 +312,14 @@ const buildEditor = ({
       canvas.getActiveObjects().forEach((object) => {
         // @ts-expect-error, Faulty TS library, fontWeight exists
         object.set({ fontWeight: newFontWeight });
+      });
+
+      canvas.renderAll();
+    },
+    updateTextAlign: (alignValue: TextAlign) => {
+      canvas.getActiveObjects().forEach((object) => {
+        // @ts-expect-error, Faulty TS library, textAlign exists
+        object.set({ textAlign: alignValue });
       });
 
       canvas.renderAll();

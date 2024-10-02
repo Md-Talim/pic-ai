@@ -136,6 +136,7 @@ export type BuildEditorProps = {
 };
 
 export type FontStyles = "normal" | "italic";
+export type TextAlign = "left" | "center" | "right";
 
 export type Editor = {
   addCircle: () => void;
@@ -153,6 +154,7 @@ export type Editor = {
   getActiveStrokeColor: () => string;
   getActiveStrokeDashArray: () => number[];
   getActiveStrokeWidth: () => number;
+  getActiveTextAlign: () => TextAlign;
   getStrikethroughState: () => boolean;
   getUnderlineState: () => boolean;
   selectedObjects: fabric.Object[];
@@ -167,6 +169,7 @@ export type Editor = {
   updateStrokeColor: (newStorkeColor: string) => void;
   updateStrokeDashArray: (newDashArray: number[]) => void;
   updateStrokeWidth: (newStrokeWidth: number) => void;
+  updateTextAlign: (alignValue: TextAlign) => void;
 };
 
 export interface EditorHookParams {
