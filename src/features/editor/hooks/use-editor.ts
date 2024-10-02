@@ -6,6 +6,7 @@ import {
   EditorHookParams,
   FILL_COLOR,
   FONT_FAMILY,
+  FONT_SIZE,
   FONT_WEIGHT,
   FontStyles,
   RECTANGLE_OPTIONS,
@@ -161,6 +162,18 @@ const buildEditor = ({
 
       return activeFont;
     },
+    getActiveFontSize: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return FONT_SIZE;
+      }
+
+      // @ts-expect-error, Faulty TS library, fontSize exists
+      const fontSize = selectedObject.get("fontSize") || FONT_SIZE;
+
+      return fontSize;
+    },
     getActiveFontStyle: () => {
       const selectedObject = selectedObjects[0];
 
@@ -280,6 +293,14 @@ const buildEditor = ({
           // @ts-expect-error, Faulty TS library, fontFamily exists
           object.set({ fontFamily: newFontFamily });
         }
+      });
+
+      canvas.renderAll();
+    },
+    updateFontSize: (newFontSize: number) => {
+      canvas.getActiveObjects().forEach((object) => {
+        // @ts-expect-error, Faulty TS library, fontSize exists
+        object.set({ fontSize: newFontSize });
       });
 
       canvas.renderAll();

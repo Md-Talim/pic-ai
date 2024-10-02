@@ -148,6 +148,7 @@ export type Editor = {
   canvas: fabric.Canvas;
   getActiveFillColor: () => string;
   getActiveFont: () => string;
+  getActiveFontSize: () => number;
   getActiveFontStyle: () => FontStyles;
   getActiveFontWeight: () => number;
   getActiveOpacity: () => number;
@@ -161,6 +162,7 @@ export type Editor = {
   sendBackwards: () => void;
   updateFillColor: (newFillColor: string) => void;
   updateFontFamily: (newFontFamily: string) => void;
+  updateFontSize: (newFontSize: number) => void;
   updateFontStrikethrough: (strikethroughState: boolean) => void;
   updateFontStyle: (newFontStyle: FontStyles) => void;
   updateFontUnderline: (underlineState: boolean) => void;

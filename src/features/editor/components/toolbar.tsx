@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   ActiveTool,
   Editor,
+  FONT_SIZE,
   FONT_WEIGHT,
   TextAlign,
 } from "@/features/editor/types";
@@ -21,6 +22,7 @@ import {
   UnderlineIcon,
 } from "lucide-react";
 import { useState } from "react";
+import FontSizeInput from "./font-size-input";
 
 interface Props {
   editor: Editor | undefined;
@@ -37,12 +39,14 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   const initialStrikethroughState = editor?.getStrikethroughState();
   const initialUnderlineState = editor?.getUnderlineState();
   const initialTextAlign = editor?.getActiveTextAlign();
+  const initialFontSize = editor?.getActiveFontSize() || FONT_SIZE;
 
   const [properties, setProperties] = useState({
     fillColor: initialFillColor,
     borderColor: initialBorderColor,
     fontFamily: initialFontFamily,
     fontWeight: initialFontWeight,
+    fontSize: initialFontSize,
     fontStyle: initialFontStyle,
     isStrikethrough: initialStrikethroughState,
     isUnderline: initialUnderlineState,
@@ -133,8 +137,24 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
     }));
   };
 
+  const handleFontSizeChange = (newFontSize: number) => {
+    editor?.updateFontSize(newFontSize);
+    setProperties((current) => ({
+      ...current,
+      fontSize: newFontSize,
+    }));
+  };
+
   return (
     <div className="z-[49] flex h-14 w-full shrink-0 items-center gap-x-2 overflow-x-auto border-b bg-white p-2">
+      {isText && (
+        <div className="flex h-full items-center justify-center">
+          <FontSizeInput
+            fontSize={properties.fontSize}
+            onChangeFontSize={handleFontSizeChange}
+          />
+        </div>
+      )}
       {isText && (
         <div className="flex h-full items-center justify-center">
           <Hint label="Font Family" side="bottom" sideOffset={5}>
