@@ -7,6 +7,7 @@ import {
   FILL_COLOR,
   FONT_FAMILY,
   FONT_WEIGHT,
+  FontStyles,
   RECTANGLE_OPTIONS,
   STROKE_COLOR,
   STROKE_DASH_ARRAY,
@@ -53,6 +54,8 @@ const buildEditor = ({
   };
 
   return {
+    canvas,
+    selectedObjects,
     bringForward: () => {
       canvas.getActiveObjects().forEach((object) => {
         object.bringForward();
@@ -73,88 +76,6 @@ const buildEditor = ({
       const workspace = getWorkspace();
       workspace?.sendToBack();
     },
-    updateFillColor: (newColor: string) => {
-      setFillColor(newColor);
-      canvas.getActiveObjects().forEach((object) => {
-        object.set({ fill: newColor });
-      });
-
-      canvas.renderAll();
-    },
-    updateStrokeColor: (newColor: string) => {
-      setStrokeColor(newColor);
-
-      canvas.getActiveObjects().forEach((object) => {
-        // Text types don't have stroke
-        if (isTextType(object.type)) {
-          object.set({ fill: newColor });
-          return;
-        }
-
-        object.set({ stroke: newColor });
-      });
-
-      canvas.renderAll();
-    },
-    updateStrokeWidth: (newWidth: number) => {
-      setStrokeWidth(newWidth);
-      canvas.getActiveObjects().forEach((object) => {
-        object.set({ strokeWidth: newWidth });
-      });
-
-      canvas.renderAll();
-    },
-    updateStrokeDashArray: (value: number[]) => {
-      setStrokeDashArray(value);
-      canvas.getActiveObjects().forEach((object) => {
-        object.set({ strokeDashArray: value });
-      });
-
-      canvas.renderAll();
-    },
-    updateOpacity: (newOpacity: number) => {
-      canvas.getActiveObjects().forEach((object) => {
-        object.set({ opacity: newOpacity });
-      });
-
-      canvas.renderAll();
-    },
-    updateFontFamily: (newFontFamily: string) => {
-      setFontFamily(newFontFamily);
-      canvas.getActiveObjects().forEach((object) => {
-        if (isTextType(object.type)) {
-          // @ts-expect-error, Faulty TS library, fontFamily exists
-          object.set({ fontFamily: newFontFamily });
-        }
-      });
-
-      canvas.renderAll();
-    },
-    updateFontWeight: (newFontWeight: number) => {
-      canvas.getActiveObjects().forEach((object) => {
-        // @ts-expect-error, Faulty TS library, fontWeight exists
-        object.set({ fontWeight: newFontWeight });
-      });
-
-      canvas.renderAll();
-    },
-    updateFontStyle: (newFontStyle) => {
-      canvas.getActiveObjects().forEach((object) => {
-        // @ts-expect-error, Faulty TS library, fontStyle exists
-        object.set({ fontStyle: newFontStyle });
-      });
-
-      canvas.renderAll();
-    },
-    addText: (value, options) => {
-      const textObject = new fabric.Textbox(value, {
-        ...TEXT_OPTIONS,
-        fill: fillColor,
-        ...options,
-      });
-
-      addToCanvas(textObject);
-    },
     addCircle: () => {
       const circleShape = new fabric.Circle({
         ...CIRCLE_OPTIONS,
@@ -164,26 +85,6 @@ const buildEditor = ({
       });
 
       addToCanvas(circleShape);
-    },
-    addRectangle: () => {
-      const rectangleShape = new fabric.Rect({
-        ...RECTANGLE_OPTIONS,
-        fill: fillColor,
-        stroke: strokeColor,
-        strokeWidth,
-      });
-
-      addToCanvas(rectangleShape);
-    },
-    addTriangle: () => {
-      const triangleShape = new fabric.Triangle({
-        ...TRIANGLE_OPTIONS,
-        fill: fillColor,
-        stroke: strokeColor,
-        strokeWidth,
-      });
-
-      addToCanvas(triangleShape);
     },
     addDiamond: () => {
       const WIDTH = DIAMOND_OPTIONS.width;
@@ -206,41 +107,34 @@ const buildEditor = ({
 
       addToCanvas(diamondShape);
     },
-    getActiveFont: () => {
-      const selectedObject = selectedObjects[0];
+    addRectangle: () => {
+      const rectangleShape = new fabric.Rect({
+        ...RECTANGLE_OPTIONS,
+        fill: fillColor,
+        stroke: strokeColor,
+        strokeWidth,
+      });
 
-      if (!selectedObject) {
-        return fontFamily;
-      }
-
-      // @ts-expect-error, Faulty TS library, fontFamily exists.
-      const activeFont = selectedObject.get("fontFamily") || fontFamily;
-
-      return activeFont;
+      addToCanvas(rectangleShape);
     },
-    getActiveFontWeight: () => {
-      const selectedObject = selectedObjects[0];
+    addText: (text: string, options?: fabric.ITextOptions) => {
+      const textObject = new fabric.Textbox(text, {
+        ...TEXT_OPTIONS,
+        fill: fillColor,
+        ...options,
+      });
 
-      if (!selectedObject) {
-        return FONT_WEIGHT;
-      }
-
-      // @ts-expect-error, Faulty TS library, fontWeight exists.
-      const fontWeight = selectedObject.get("fontWeight") || FONT_WEIGHT;
-
-      return fontWeight;
+      addToCanvas(textObject);
     },
-    getActiveFontStyle: () => {
-      const selectedObject = selectedObjects[0];
+    addTriangle: () => {
+      const triangleShape = new fabric.Triangle({
+        ...TRIANGLE_OPTIONS,
+        fill: fillColor,
+        stroke: strokeColor,
+        strokeWidth,
+      });
 
-      if (!selectedObject) {
-        return "normal";
-      }
-
-      // @ts-expect-error, Faulty TS library, fontStyle exists.
-      const fontStyle = selectedObject.get("fontStyle") || "normal";
-
-      return fontStyle;
+      addToCanvas(triangleShape);
     },
     getActiveFillColor: () => {
       const selectedObject = selectedObjects[0];
@@ -254,6 +148,53 @@ const buildEditor = ({
       // right now, gradients & patterns are not supported
       return value as string;
     },
+    getActiveFont: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return fontFamily;
+      }
+
+      // @ts-expect-error, Faulty TS library, fontFamily exists.
+      const activeFont = selectedObject.get("fontFamily") || fontFamily;
+
+      return activeFont;
+    },
+    getActiveFontStyle: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return "normal";
+      }
+
+      // @ts-expect-error, Faulty TS library, fontStyle exists.
+      const fontStyle = selectedObject.get("fontStyle") || "normal";
+
+      return fontStyle;
+    },
+    getActiveFontWeight: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return FONT_WEIGHT;
+      }
+
+      // @ts-expect-error, Faulty TS library, fontWeight exists.
+      const fontWeight = selectedObject.get("fontWeight") || FONT_WEIGHT;
+
+      return fontWeight;
+    },
+    getActiveOpacity: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return 1;
+      }
+
+      const opacity = selectedObject.get("opacity") || 1;
+
+      return opacity;
+    },
     getActiveStrokeColor: () => {
       const selectedObject = selectedObjects[0];
 
@@ -262,17 +203,6 @@ const buildEditor = ({
       }
 
       const value = selectedObject.get("stroke") || strokeColor;
-
-      return value;
-    },
-    getActiveStrokeWidth: () => {
-      const selectedObject = selectedObjects[0];
-
-      if (!selectedObject) {
-        return strokeWidth;
-      }
-
-      const value = selectedObject.get("strokeWidth") || strokeWidth;
 
       return value;
     },
@@ -287,19 +217,90 @@ const buildEditor = ({
 
       return value;
     },
-    getActiveOpacity: () => {
+    getActiveStrokeWidth: () => {
       const selectedObject = selectedObjects[0];
 
       if (!selectedObject) {
-        return 1;
+        return strokeWidth;
       }
 
-      const opacity = selectedObject.get("opacity") || 1;
+      const value = selectedObject.get("strokeWidth") || strokeWidth;
 
-      return opacity;
+      return value;
     },
-    canvas,
-    selectedObjects,
+    updateFillColor: (newFillColor: string) => {
+      setFillColor(newFillColor);
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ fill: newFillColor });
+      });
+
+      canvas.renderAll();
+    },
+    updateFontFamily: (newFontFamily: string) => {
+      setFontFamily(newFontFamily);
+      canvas.getActiveObjects().forEach((object) => {
+        if (isTextType(object.type)) {
+          // @ts-expect-error, Faulty TS library, fontFamily exists
+          object.set({ fontFamily: newFontFamily });
+        }
+      });
+
+      canvas.renderAll();
+    },
+    updateFontStyle: (newFontStyle: FontStyles) => {
+      canvas.getActiveObjects().forEach((object) => {
+        // @ts-expect-error, Faulty TS library, fontStyle exists
+        object.set({ fontStyle: newFontStyle });
+      });
+
+      canvas.renderAll();
+    },
+    updateFontWeight: (newFontWeight: number) => {
+      canvas.getActiveObjects().forEach((object) => {
+        // @ts-expect-error, Faulty TS library, fontWeight exists
+        object.set({ fontWeight: newFontWeight });
+      });
+
+      canvas.renderAll();
+    },
+    updateOpacity: (newOpacity: number) => {
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ opacity: newOpacity });
+      });
+
+      canvas.renderAll();
+    },
+    updateStrokeColor: (newStorkeColor: string) => {
+      setStrokeColor(newStorkeColor);
+
+      canvas.getActiveObjects().forEach((object) => {
+        // Text types don't have stroke
+        if (isTextType(object.type)) {
+          object.set({ fill: newStorkeColor });
+          return;
+        }
+
+        object.set({ stroke: newStorkeColor });
+      });
+
+      canvas.renderAll();
+    },
+    updateStrokeDashArray: (newDashArray: number[]) => {
+      setStrokeDashArray(newDashArray);
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ strokeDashArray: newDashArray });
+      });
+
+      canvas.renderAll();
+    },
+    updateStrokeWidth: (newStrokeWidth: number) => {
+      setStrokeWidth(newStrokeWidth);
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ strokeWidth: newStrokeWidth });
+      });
+
+      canvas.renderAll();
+    },
   };
 };
 

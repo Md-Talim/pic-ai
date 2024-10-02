@@ -3,24 +3,24 @@ import { ITextboxOptions } from "fabric/fabric-impl";
 import material from "material-colors";
 
 export const fonts = [
-  "Arial",
   "Arial Black",
-  "Verdana",
-  "Helvetica",
-  "Tahoma",
-  "Trebuchet MS",
-  "Times New Roman",
-  "Georgia",
-  "Garamond",
-  "Courier New",
-  "Brush Script MT",
-  "Palatino",
+  "Arial",
   "Bookman",
+  "Brush Script MT",
   "Comic Sans MS",
-  "Impact",
-  "Lucida Sans Unicode",
+  "Courier New",
+  "Garamond",
   "Geneva",
+  "Georgia",
+  "Helvetica",
+  "Impact",
   "Lucida Console",
+  "Lucida Sans Unicode",
+  "Palatino",
+  "Tahoma",
+  "Times New Roman",
+  "Trebuchet MS",
+  "Verdana",
 ];
 
 export const colors = [
@@ -123,46 +123,46 @@ export const DIAMOND_OPTIONS = {
 export type BuildEditorProps = {
   canvas: fabric.Canvas;
   fillColor: string;
-  strokeColor: string;
-  strokeWidth: number;
-  strokeDashArray: number[];
-  selectedObjects: fabric.Object[];
   fontFamily: string;
-  setFontFamily: (fontFamily: string) => void;
+  selectedObjects: fabric.Object[];
   setFillColor: (color: string) => void;
+  setFontFamily: (fontFamily: string) => void;
   setStrokeColor: (color: string) => void;
-  setStrokeWidth: (width: number) => void;
   setStrokeDashArray: (values: number[]) => void;
+  setStrokeWidth: (width: number) => void;
+  strokeColor: string;
+  strokeDashArray: number[];
+  strokeWidth: number;
 };
 
 export type FontStyles = "normal" | "italic";
 
 export type Editor = {
-  bringForward: () => void;
-  sendBackwards: () => void;
-  updateFillColor: (color: string) => void;
-  updateStrokeColor: (color: string) => void;
-  updateStrokeWidth: (width: number) => void;
-  updateStrokeDashArray: (value: number[]) => void;
-  updateOpacity: (newOpacity: number) => void;
-  updateFontFamily: (newFontFamily: string) => void;
-  updateFontWeight: (newFontWeight: number) => void;
-  updateFontStyle: (newStyle: FontStyles) => void;
-  addText: (value: string, options?: ITextboxOptions) => void;
   addCircle: () => void;
-  addRectangle: () => void;
-  addTriangle: () => void;
   addDiamond: () => void;
-  getActiveFont: () => string;
-  getActiveFontWeight: () => number;
-  getActiveFontStyle: () => FontStyles;
-  getActiveFillColor: () => string;
-  getActiveStrokeColor: () => string;
-  getActiveStrokeWidth: () => number;
-  getActiveStrokeDashArray: () => number[];
-  getActiveOpacity: () => number;
+  addRectangle: () => void;
+  addText: (text: string, options?: ITextboxOptions) => void;
+  addTriangle: () => void;
+  bringForward: () => void;
   canvas: fabric.Canvas;
+  getActiveFillColor: () => string;
+  getActiveFont: () => string;
+  getActiveFontStyle: () => FontStyles;
+  getActiveFontWeight: () => number;
+  getActiveOpacity: () => number;
+  getActiveStrokeColor: () => string;
+  getActiveStrokeDashArray: () => number[];
+  getActiveStrokeWidth: () => number;
   selectedObjects: fabric.Object[];
+  sendBackwards: () => void;
+  updateFillColor: (newFillColor: string) => void;
+  updateFontFamily: (newFontFamily: string) => void;
+  updateFontStyle: (newFontStyle: FontStyles) => void;
+  updateFontWeight: (newFontWeight: number) => void;
+  updateOpacity: (newOpacity: number) => void;
+  updateStrokeColor: (newStorkeColor: string) => void;
+  updateStrokeDashArray: (newDashArray: number[]) => void;
+  updateStrokeWidth: (newStrokeWidth: number) => void;
 };
 
 export interface EditorHookParams {

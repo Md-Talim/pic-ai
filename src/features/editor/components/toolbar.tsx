@@ -72,7 +72,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
     <div className="z-[49] flex h-14 w-full shrink-0 items-center gap-x-2 overflow-x-auto border-b bg-white p-2">
       {isText && (
         <div className="flex h-full items-center justify-center">
-          <Hint label="Border Color" side="bottom" sideOffset={5}>
+          <Hint label="Font Family" side="bottom" sideOffset={5}>
             <Button
               variant="ghost"
               size="icon"
@@ -89,7 +89,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
       )}
       {isText && (
         <div className="flex h-full items-center justify-center">
-          <Hint label="Border Color" side="bottom" sideOffset={5}>
+          <Hint label="Font Weight" side="bottom" sideOffset={5}>
             <Button
               variant="ghost"
               size="icon"
@@ -103,7 +103,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
       )}
       {isText && (
         <div className="flex h-full items-center justify-center">
-          <Hint label="Border Color" side="bottom" sideOffset={5}>
+          <Hint label="Font Style" side="bottom" sideOffset={5}>
             <Button
               variant="ghost"
               size="icon"
