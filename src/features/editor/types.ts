@@ -146,6 +146,7 @@ export type Editor = {
   addTriangle: () => void;
   bringForward: () => void;
   canvas: fabric.Canvas;
+  delete: () => void;
   getActiveFillColor: () => string;
   getActiveFont: () => string;
   getActiveFontSize: () => number;

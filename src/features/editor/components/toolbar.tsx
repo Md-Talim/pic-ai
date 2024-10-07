@@ -19,6 +19,7 @@ import {
   BoldIcon,
   ItalicIcon,
   StrikethroughIcon,
+  TrashIcon,
   UnderlineIcon,
 } from "lucide-react";
 import { useState } from "react";
@@ -350,6 +351,18 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
             className={cn(activeTool === "opacity" && "bg-neutral-100")}
           >
             <TransparencyGridIcon className="size-4" />
+          </Button>
+        </Hint>
+      </div>
+      <div className="flex h-full items-center justify-center">
+        <Hint label="Delete" side="bottom" sideOffset={5}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => editor?.delete()}
+            className="hover:bg-red-500 hover:text-white"
+          >
+            <TrashIcon className="size-4" />
           </Button>
         </Hint>
       </div>

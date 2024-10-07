@@ -58,6 +58,11 @@ const buildEditor = ({
   return {
     canvas,
     selectedObjects,
+    delete: () => {
+      canvas.getActiveObjects().forEach((object) => canvas.remove(object));
+      canvas.discardActiveObject();
+      canvas.renderAll();
+    },
     bringForward: () => {
       canvas.getActiveObjects().forEach((object) => {
         object.bringForward();
