@@ -141,6 +141,7 @@ export type TextAlign = "left" | "center" | "right";
 export type Editor = {
   addCircle: () => void;
   addDiamond: () => void;
+  addImage: (imageURL: string) => void;
   addRectangle: () => void;
   addText: (text: string, options?: ITextboxOptions) => void;
   addTriangle: () => void;

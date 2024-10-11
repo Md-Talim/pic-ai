@@ -143,6 +143,20 @@ const buildEditor = ({
 
       addToCanvas(triangleShape);
     },
+    addImage: (imageURL: string) => {
+      fabric.Image.fromURL(
+        imageURL,
+        (image) => {
+          const workspace = getWorkspace();
+
+          image.scaleToWidth(workspace?.width || 0);
+          image.scaleToHeight(workspace?.height || 0);
+
+          addToCanvas(image);
+        },
+        { crossOrigin: "anonymous" },
+      );
+    },
     getActiveFillColor: () => {
       const selectedObject = selectedObjects[0];
 
