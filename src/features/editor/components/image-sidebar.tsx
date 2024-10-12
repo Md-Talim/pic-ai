@@ -2,6 +2,7 @@ import ToolSidebarClose from "@/features/editor/components/tool-sidebar-close";
 import ToolSidebarHeader from "@/features/editor/components/tool-sidebar-header";
 import { ActiveTool, Editor } from "@/features/editor/types";
 import { useGetImages } from "@/features/images/api/use-get-images";
+import { UploadButton } from "@/lib/uploadthing";
 import { cn } from "@/lib/utils";
 import { AlertTriangleIcon, LoaderIcon } from "lucide-react";
 import Image from "next/image";
@@ -33,6 +34,19 @@ const ImageSidebar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
         title="Images"
         description="Add images to your canvas."
       />
+      <div className="border-b p-4">
+        <UploadButton
+          appearance={{
+            button: "w-full text-sm font-medium",
+            allowedContent: "hidden",
+          }}
+          content={{ button: "Upload Image" }}
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            editor?.addImage(res[0].url);
+          }}
+        />
+      </div>
       {isLoading && (
         <div className="flex flex-1 items-center justify-center">
           <LoaderIcon className="size-4 animate-spin text-muted-foreground" />
