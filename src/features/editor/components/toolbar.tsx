@@ -63,6 +63,7 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   const selectedObject = editor?.selectedObjects[0];
   const selectedObjectType = editor?.selectedObjects[0].type;
   const isText = isTextType(selectedObjectType);
+  const isImage = selectedObjectType === "image";
 
   const toggleBold = () => {
     if (!selectedObject) {
@@ -274,21 +275,23 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
           </Hint>
         </div>
       )}
-      <div className="flex h-full items-center justify-center">
-        <Hint label="Color" side="bottom" sideOffset={5}>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => onChangeActiveTool("fill")}
-            className={cn(activeTool === "fill" && "bg-neutral-100")}
-          >
-            <div
-              className="size-4 rounded-sm border"
-              style={{ backgroundColor: properties.fillColor }}
-            />
-          </Button>
-        </Hint>
-      </div>
+      {!isImage && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Color" side="bottom" sideOffset={5}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => onChangeActiveTool("fill")}
+              className={cn(activeTool === "fill" && "bg-neutral-100")}
+            >
+              <div
+                className="size-4 rounded-sm border"
+                style={{ backgroundColor: properties.fillColor }}
+              />
+            </Button>
+          </Hint>
+        </div>
+      )}
       {!isText && (
         <div className="flex h-full items-center justify-center">
           <Hint label="Border Color" side="bottom" sideOffset={5}>
