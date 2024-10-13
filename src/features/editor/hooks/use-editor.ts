@@ -17,7 +17,7 @@ import {
   TextAlign,
   TRIANGLE_OPTIONS,
 } from "@/features/editor/types";
-import { isTextType } from "@/features/editor/utils";
+import { createFilter, isTextType } from "@/features/editor/utils";
 import { fabric } from "fabric";
 import { useCallback, useMemo, useState } from "react";
 import { useAutoResize } from "./use-auto-resize";
@@ -363,6 +363,19 @@ const buildEditor = ({
       });
 
       canvas.renderAll();
+    },
+    updateImageFilter: (newFilter: string) => {
+      canvas.getActiveObjects().map((object) => {
+        if (object.type === "image") {
+          const imageObject = object as fabric.Image;
+          const effect = createFilter(newFilter);
+
+          imageObject.filters = effect ? [effect] : [];
+          imageObject.applyFilters();
+
+          canvas.renderAll();
+        }
+      });
     },
     updateOpacity: (newOpacity: number) => {
       canvas.getActiveObjects().forEach((object) => {

@@ -2,6 +2,7 @@
 
 import BorderColorSidebar from "@/features/editor/components/border-color-sidebar";
 import FillColorSidebar from "@/features/editor/components/fill-color-sidebar";
+import FiltersSidebar from "@/features/editor/components/filters-sidebar";
 import FontSidebar from "@/features/editor/components/font-sidebar";
 import Footer from "@/features/editor/components/footer";
 import ImageSidebar from "@/features/editor/components/image-sidebar";
@@ -120,6 +121,11 @@ const Editor = () => {
           onChangeActiveTool={handleChangeActiveTool}
         />
         <ImageSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={handleChangeActiveTool}
+        />
+        <FiltersSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={handleChangeActiveTool}

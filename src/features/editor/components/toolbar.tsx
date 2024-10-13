@@ -18,6 +18,7 @@ import {
   ArrowUpIcon,
   BoldIcon,
   ItalicIcon,
+  PaletteIcon,
   StrikethroughIcon,
   TrashIcon,
   UnderlineIcon,
@@ -369,6 +370,20 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
           </Button>
         </Hint>
       </div>
+      {isImage && (
+        <div className="flex h-full items-center justify-center">
+          <Hint label="Filters" side="bottom" sideOffset={5}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => onChangeActiveTool("filter")}
+              className={cn(activeTool === "filter" && "bg-neutral-100")}
+            >
+              <PaletteIcon className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
     </div>
   );
 };
