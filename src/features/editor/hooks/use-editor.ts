@@ -22,8 +22,11 @@ import { fabric } from "fabric";
 import { useCallback, useMemo, useState } from "react";
 import { useAutoResize } from "./use-auto-resize";
 import { useCanvasEvents } from "./use-canvas-events";
+import { useClipboard } from "./use-clipboard";
 
 const buildEditor = ({
+  copy,
+  paste,
   canvas,
   fillColor,
   strokeColor,
@@ -297,6 +300,8 @@ const buildEditor = ({
 
       return !!hasUnderline;
     },
+    handleCopy: () => copy(),
+    handlePaste: () => paste(),
     updateFillColor: (newFillColor: string) => {
       setFillColor(newFillColor);
       canvas.getActiveObjects().forEach((object) => {
@@ -430,9 +435,13 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
   const [strokeDashArray, setStrokeDashArray] =
     useState<number[]>(STROKE_DASH_ARRAY);
 
+  const { copy, paste } = useClipboard({ canvas });
+
   const editor = useMemo(() => {
     if (canvas) {
       return buildEditor({
+        copy,
+        paste,
         canvas,
         fillColor,
         strokeColor,

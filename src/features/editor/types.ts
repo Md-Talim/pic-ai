@@ -147,6 +147,8 @@ export const DIAMOND_OPTIONS = {
 };
 
 export type BuildEditorProps = {
+  copy: () => void;
+  paste: () => void;
   canvas: fabric.Canvas;
   fillColor: string;
   fontFamily: string;
@@ -186,6 +188,8 @@ export type Editor = {
   getActiveTextAlign: () => TextAlign;
   getStrikethroughState: () => boolean;
   getUnderlineState: () => boolean;
+  handleCopy: () => void;
+  handlePaste: () => void;
   selectedObjects: fabric.Object[];
   sendBackwards: () => void;
   updateFillColor: (newFillColor: string) => void;
