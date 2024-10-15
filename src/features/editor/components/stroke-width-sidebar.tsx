@@ -30,7 +30,7 @@ const StrokeWidthSidebar = ({
     onChangeActiveTool("select");
   };
 
-  const handleChangeStrokeColor = (newWidth: number) => {
+  const handleChangeStrokeWidth = (newWidth: number) => {
     editor?.updateStrokeWidth(newWidth);
   };
 
@@ -53,7 +53,7 @@ const StrokeWidthSidebar = ({
         <Label className="text-sm">Stroke Width</Label>
         <Slider
           value={[defaultStrokeWidth]}
-          onValueChange={(values) => handleChangeStrokeColor(values[0])}
+          onValueChange={(values) => handleChangeStrokeWidth(values[0])}
         />
       </div>
       <div className="space-y-4 border-b p-4">
