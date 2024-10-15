@@ -176,6 +176,8 @@ export type Editor = {
   bringForward: () => void;
   canvas: fabric.Canvas;
   delete: () => void;
+  disableDrawMode: () => void;
+  enableDrawMode: () => void;
   getActiveFillColor: () => string;
   getActiveFont: () => string;
   getActiveFontSize: () => number;

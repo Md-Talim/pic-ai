@@ -1,6 +1,7 @@
 "use client";
 
 import BorderColorSidebar from "@/features/editor/components/border-color-sidebar";
+import DrawSidebar from "@/features/editor/components/draw-sidebar";
 import FillColorSidebar from "@/features/editor/components/fill-color-sidebar";
 import FiltersSidebar from "@/features/editor/components/filters-sidebar";
 import FontSidebar from "@/features/editor/components/font-sidebar";
@@ -20,24 +21,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const Editor = () => {
   const [activeTool, setActiveTool] = useState<ActiveTool>("select");
-
-  const handleChangeActiveTool = useCallback(
-    (tool: ActiveTool) => {
-      if (tool === activeTool) {
-        return setActiveTool("select");
-      }
-
-      if (tool === "draw") {
-        // TODO: Enable draw mode
-      }
-      if (activeTool === "draw") {
-        // TODO: Disable draw mode
-      }
-
-      setActiveTool(tool);
-    },
-    [activeTool],
-  );
 
   const handleClearSelection = useCallback(() => {
     const selectionDependentTools = [
@@ -60,6 +43,24 @@ const Editor = () => {
   });
   const canvasRef = useRef(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleChangeActiveTool = useCallback(
+    (tool: ActiveTool) => {
+      if (tool === "draw") {
+        editor?.enableDrawMode();
+      }
+      if (activeTool === "draw") {
+        editor?.disableDrawMode();
+      }
+
+      if (tool === activeTool) {
+        return setActiveTool("select");
+      }
+
+      setActiveTool(tool);
+    },
+    [activeTool, editor],
+  );
 
   useEffect(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
@@ -126,6 +127,11 @@ const Editor = () => {
           onChangeActiveTool={handleChangeActiveTool}
         />
         <FiltersSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={handleChangeActiveTool}
+        />
+        <DrawSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={handleChangeActiveTool}

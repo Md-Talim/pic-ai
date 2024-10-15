@@ -3,6 +3,7 @@ import { ActiveTool } from "@/features/editor/types";
 import {
   ImageIcon,
   LayoutTemplateIcon,
+  PencilIcon,
   SettingsIcon,
   ShapesIcon,
   SparklesIcon,
@@ -41,6 +42,12 @@ const Sidebar = ({ activeTool, onChangeActiveTool }: Props) => {
           label="Shapes"
           isActive={activeTool === "shapes"}
           onClick={() => onChangeActiveTool("shapes")}
+        />
+        <SidebarItem
+          icon={PencilIcon}
+          label="Draw"
+          isActive={activeTool === "draw"}
+          onClick={() => onChangeActiveTool("draw")}
         />
         <SidebarItem
           icon={SparklesIcon}
