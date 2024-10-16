@@ -147,6 +147,7 @@ export const DIAMOND_OPTIONS = {
 };
 
 export type BuildEditorProps = {
+  autoZoom: () => void;
   copy: () => void;
   paste: () => void;
   canvas: fabric.Canvas;
@@ -190,10 +191,12 @@ export type Editor = {
   getActiveTextAlign: () => TextAlign;
   getStrikethroughState: () => boolean;
   getUnderlineState: () => boolean;
+  getWorkspace: () => fabric.Object | undefined;
   handleCopy: () => void;
   handlePaste: () => void;
   selectedObjects: fabric.Object[];
   sendBackwards: () => void;
+  updateBackgroundColor: (color: string) => void;
   updateFillColor: (newFillColor: string) => void;
   updateFontFamily: (newFontFamily: string) => void;
   updateFontSize: (newFontSize: number) => void;
@@ -207,6 +210,7 @@ export type Editor = {
   updateStrokeDashArray: (newDashArray: number[]) => void;
   updateStrokeWidth: (newStrokeWidth: number) => void;
   updateTextAlign: (alignValue: TextAlign) => void;
+  updateWorkspaceSize: (size: { width: number; height: number }) => void;
 };
 
 export interface EditorHookParams {

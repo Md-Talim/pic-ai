@@ -25,6 +25,7 @@ import { useCanvasEvents } from "./use-canvas-events";
 import { useClipboard } from "./use-clipboard";
 
 const buildEditor = ({
+  autoZoom,
   copy,
   paste,
   canvas,
@@ -310,6 +311,7 @@ const buildEditor = ({
 
       return !!hasUnderline;
     },
+    getWorkspace: () => getWorkspace(),
     handleCopy: () => copy(),
     handlePaste: () => paste(),
     updateFillColor: (newFillColor: string) => {
@@ -432,6 +434,16 @@ const buildEditor = ({
       canvas.freeDrawingBrush.width = newStrokeWidth;
       canvas.renderAll();
     },
+    updateWorkspaceSize: (size: { width: number; height: number }) => {
+      const workspace = getWorkspace();
+      workspace?.set(size);
+      autoZoom();
+    },
+    updateBackgroundColor: (color: string) => {
+      const workspace = getWorkspace();
+      workspace?.set({ fill: color });
+      canvas.renderAll();
+    },
   };
 };
 
@@ -449,9 +461,13 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
 
   const { copy, paste } = useClipboard({ canvas });
 
+  const { autoZoom } = useAutoResize({ canvas, container });
+  useCanvasEvents({ canvas, setSelectedObjects, clearSelectionCallback });
+
   const editor = useMemo(() => {
     if (canvas) {
       return buildEditor({
+        autoZoom,
         copy,
         paste,
         canvas,
@@ -471,6 +487,7 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
 
     return undefined;
   }, [
+    autoZoom,
     canvas,
     copy,
     fillColor,
@@ -481,9 +498,6 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
     strokeDashArray,
     strokeWidth,
   ]);
-
-  useAutoResize({ canvas, container });
-  useCanvasEvents({ canvas, setSelectedObjects, clearSelectionCallback });
 
   const init = useCallback(
     ({
