@@ -157,6 +157,7 @@ const buildEditor = ({
 
       addToCanvas(triangleShape);
     },
+    autoZoom,
     addImage: (imageURL: string) => {
       fabric.Image.fromURL(
         imageURL,
@@ -443,6 +444,24 @@ const buildEditor = ({
       const workspace = getWorkspace();
       workspace?.set({ fill: color });
       canvas.renderAll();
+    },
+    zoomIn: () => {
+      let zoomRatio = canvas.getZoom();
+      zoomRatio += 0.05;
+      const center = canvas.getCenter();
+      canvas.zoomToPoint(
+        new fabric.Point(center.left, center.top),
+        zoomRatio > 1.5 ? 1.5 : zoomRatio,
+      );
+    },
+    zoomOut: () => {
+      let zoomRatio = canvas.getZoom();
+      zoomRatio -= 0.05;
+      const center = canvas.getCenter();
+      canvas.zoomToPoint(
+        new fabric.Point(center.left, center.top),
+        zoomRatio < 0.2 ? 0.2 : zoomRatio,
+      );
     },
   };
 };

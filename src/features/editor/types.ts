@@ -174,6 +174,7 @@ export type Editor = {
   addRectangle: () => void;
   addText: (text: string, options?: ITextboxOptions) => void;
   addTriangle: () => void;
+  autoZoom: () => void;
   bringForward: () => void;
   canvas: fabric.Canvas;
   delete: () => void;
@@ -211,6 +212,8 @@ export type Editor = {
   updateStrokeWidth: (newStrokeWidth: number) => void;
   updateTextAlign: (alignValue: TextAlign) => void;
   updateWorkspaceSize: (size: { width: number; height: number }) => void;
+  zoomIn: () => void;
+  zoomOut: () => void;
 };
 
 export interface EditorHookParams {
