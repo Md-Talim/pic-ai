@@ -79,6 +79,7 @@ const Editor = () => {
   return (
     <div className="flex h-full flex-col">
       <Navbar
+        editor={editor}
         activeTool={activeTool}
         onChangeActiveTool={handleChangeActiveTool}
       />

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import Logo from "@/features/editor/components/logo";
-import { ActiveTool } from "@/features/editor/types";
+import { ActiveTool, Editor } from "@/features/editor/types";
 import { cn } from "@/lib/utils";
 import {
   ChevronDownIcon,
@@ -21,11 +21,12 @@ import {
 } from "lucide-react";
 
 interface Props {
+  editor: Editor | undefined;
   activeTool: ActiveTool;
   onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
-const Navbar = ({ activeTool, onChangeActiveTool }: Props) => {
+const Navbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   return (
     <nav className="flex h-16 w-full items-center gap-x-8 border-b p-4 lg:pl-8">
       <Logo />
@@ -63,12 +64,22 @@ const Navbar = ({ activeTool, onChangeActiveTool }: Props) => {
           </Button>
         </Hint>
         <Hint label="Undo" side="bottom" sideOffset={10}>
-          <Button variant="ghost" size="icon">
+          <Button
+            disabled={!editor?.canUndo()}
+            variant="ghost"
+            size="icon"
+            onClick={() => editor?.handleUndo()}
+          >
             <UndoIcon className="size-4" />
           </Button>
         </Hint>
         <Hint label="Redo" side="bottom" sideOffset={10}>
-          <Button variant="ghost" size="icon">
+          <Button
+            disabled={!editor?.canRedo()}
+            variant="ghost"
+            size="icon"
+            onClick={() => editor?.handleRedo()}
+          >
             <RedoIcon className="size-4" />
           </Button>
         </Hint>

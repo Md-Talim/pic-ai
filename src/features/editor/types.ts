@@ -148,11 +148,15 @@ export const DIAMOND_OPTIONS = {
 
 export type BuildEditorProps = {
   autoZoom: () => void;
-  copy: () => void;
-  paste: () => void;
+  canRedo: () => boolean;
+  canUndo: () => boolean;
   canvas: fabric.Canvas;
+  copy: () => void;
   fillColor: string;
   fontFamily: string;
+  paste: () => void;
+  redo: () => void;
+  save: (skip?: boolean) => void;
   selectedObjects: fabric.Object[];
   setFillColor: (color: string) => void;
   setFontFamily: (fontFamily: string) => void;
@@ -162,6 +166,7 @@ export type BuildEditorProps = {
   strokeColor: string;
   strokeDashArray: number[];
   strokeWidth: number;
+  undo: () => void;
 };
 
 export type FontStyles = "normal" | "italic";
@@ -176,6 +181,8 @@ export type Editor = {
   addTriangle: () => void;
   autoZoom: () => void;
   bringForward: () => void;
+  canRedo: () => boolean;
+  canUndo: () => boolean;
   canvas: fabric.Canvas;
   delete: () => void;
   disableDrawMode: () => void;
@@ -195,6 +202,8 @@ export type Editor = {
   getWorkspace: () => fabric.Object | undefined;
   handleCopy: () => void;
   handlePaste: () => void;
+  handleRedo: () => void;
+  handleUndo: () => void;
   selectedObjects: fabric.Object[];
   sendBackwards: () => void;
   updateBackgroundColor: (color: string) => void;
@@ -219,3 +228,14 @@ export type Editor = {
 export interface EditorHookParams {
   clearSelectionCallback?: () => void;
 }
+
+export const JSON_KEYS = [
+  "name",
+  "gradientAngle",
+  "selectable",
+  "hasControls",
+  "linkData",
+  "editable",
+  "extensionType",
+  "extension",
+];
