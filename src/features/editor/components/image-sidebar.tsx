@@ -17,8 +17,6 @@ interface Props {
 const ImageSidebar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
   const { isLoading, isError, data } = useGetImages();
 
-  console.log(data);
-
   const handleClose = () => {
     onChangeActiveTool("select");
   };
