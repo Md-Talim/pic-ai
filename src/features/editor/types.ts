@@ -204,6 +204,10 @@ export type Editor = {
   handlePaste: () => void;
   handleRedo: () => void;
   handleUndo: () => void;
+  saveAsJPG: () => void;
+  saveAsJSON: () => void;
+  saveAsPNG: () => void;
+  saveAsSVG: () => void;
   selectedObjects: fabric.Object[];
   sendBackwards: () => void;
   updateBackgroundColor: (color: string) => void;

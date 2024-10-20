@@ -18,7 +18,12 @@ import {
   TextAlign,
   TRIANGLE_OPTIONS,
 } from "@/features/editor/types";
-import { createFilter, isTextType } from "@/features/editor/utils";
+import {
+  createFilter,
+  downloadFile,
+  isTextType,
+  transformText,
+} from "@/features/editor/utils";
 import { fabric } from "fabric";
 import { useCallback, useMemo, useState } from "react";
 import { useAutoResize } from "./use-auto-resize";
@@ -53,6 +58,56 @@ const buildEditor = ({
     return canvas.getObjects().find((object) => object.name === "clip");
   };
 
+  const generateSaveOptions = () => {
+    const { width, height, top, left } = getWorkspace() as fabric.Rect;
+
+    return {
+      name: "Image",
+      format: "png",
+      quality: 1,
+      width,
+      height,
+      top,
+      left,
+    };
+  };
+
+  const saveAsJSON = async () => {
+    const dataURL = canvas.toJSON(JSON_KEYS);
+
+    transformText(dataURL.objects);
+    const fileString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(dataURL, null, "\t"))}`;
+    downloadFile(fileString, "json");
+  };
+
+  const saveAsJPG = () => {
+    const options = generateSaveOptions();
+
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    const dataURL = canvas.toDataURL(options);
+    downloadFile(dataURL, "jpg");
+    autoZoom();
+  };
+
+  const saveAsPNG = () => {
+    const options = generateSaveOptions();
+
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    const dataURL = canvas.toDataURL(options);
+
+    downloadFile(dataURL, "png");
+    autoZoom();
+  };
+
+  const saveAsSVG = () => {
+    const options = generateSaveOptions();
+
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    const dataURL = canvas.toDataURL(options);
+    downloadFile(dataURL, "svg");
+    autoZoom();
+  };
+
   const center = (object: fabric.Object) => {
     const workspace = getWorkspace();
     const workspaceCenter = workspace?.getCenterPoint();
@@ -71,6 +126,10 @@ const buildEditor = ({
     canUndo,
     canRedo,
     canvas,
+    saveAsJPG,
+    saveAsJSON,
+    saveAsPNG,
+    saveAsSVG,
     selectedObjects,
     delete: () => {
       canvas.getActiveObjects().forEach((object) => canvas.remove(object));

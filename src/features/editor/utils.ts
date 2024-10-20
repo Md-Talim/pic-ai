@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import { RGBColor } from "react-color";
+import { uuid } from "uuidv4";
 
 export function isTextType(type: string | undefined) {
   return type === "text" || type === "i-text" || type === "textbox";
@@ -118,4 +119,25 @@ export const createFilter = (value: string) => {
   }
 
   return effect;
+};
+
+export const transformText = (objects: fabric.Object[]) => {
+  if (!objects) return;
+
+  objects.forEach((item) => {
+    if (item.objects) {
+      transformText(item.objects);
+    } else {
+      item.type === "text" && (item.type = "textbox");
+    }
+  });
+};
+
+export const downloadFile = (file: string, type: string) => {
+  const anchorElement = document.createElement("a");
+  anchorElement.href = file;
+  anchorElement.download = `${uuid()}.${type}`;
+  document.body.appendChild(anchorElement);
+  anchorElement.click();
+  anchorElement.remove();
 };

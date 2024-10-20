@@ -100,7 +100,10 @@ const Navbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-60">
-              <DropdownMenuItem className="flex items-center gap-x-2">
+              <DropdownMenuItem
+                className="flex items-center gap-x-2"
+                onClick={editor?.saveAsJSON}
+              >
                 <FileIcon className="size-6" />
                 <div>
                   <p>JSON</p>
@@ -109,14 +112,20 @@ const Navbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
                   </p>
                 </div>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center gap-x-2">
+              <DropdownMenuItem
+                className="flex items-center gap-x-2"
+                onClick={editor?.saveAsJPG}
+              >
                 <FileIcon className="size-6" />
                 <div>
                   <p>JPG</p>
                   <p className="text-muted-foreground">Best for printing</p>
                 </div>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center gap-x-2">
+              <DropdownMenuItem
+                className="flex items-center gap-x-2"
+                onClick={editor?.saveAsPNG}
+              >
                 <FileIcon className="size-6" />
                 <div>
                   <p>PNG</p>
@@ -125,7 +134,10 @@ const Navbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
                   </p>
                 </div>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center gap-x-2">
+              <DropdownMenuItem
+                className="flex items-center gap-x-2"
+                onClick={editor?.saveAsSVG}
+              >
                 <FileIcon className="size-6" />
                 <div>
                   <p>SVG</p>
