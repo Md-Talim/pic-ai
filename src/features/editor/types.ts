@@ -204,6 +204,7 @@ export type Editor = {
   handlePaste: () => void;
   handleRedo: () => void;
   handleUndo: () => void;
+  loadFromJSON: (json: string) => void;
   saveAsJPG: () => void;
   saveAsJSON: () => void;
   saveAsPNG: () => void;

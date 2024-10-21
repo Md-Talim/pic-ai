@@ -72,6 +72,14 @@ const buildEditor = ({
     };
   };
 
+  const loadFromJSON = (json: string) => {
+    const data = JSON.parse(json);
+
+    canvas.loadFromJSON(data, () => {
+      autoZoom();
+    });
+  };
+
   const saveAsJSON = async () => {
     const dataURL = canvas.toJSON(JSON_KEYS);
 
@@ -126,6 +134,7 @@ const buildEditor = ({
     canUndo,
     canRedo,
     canvas,
+    loadFromJSON,
     saveAsJPG,
     saveAsJSON,
     saveAsPNG,
