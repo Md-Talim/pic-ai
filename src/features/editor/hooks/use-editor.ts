@@ -31,6 +31,7 @@ import { useCanvasEvents } from "./use-canvas-events";
 import { useClipboard } from "./use-clipboard";
 import { useHistory } from "./use-history";
 import { useHotkeys } from "./use-hotkeys";
+import { useWindowEvents } from "./use-window.events";
 
 const buildEditor = ({
   save,
@@ -560,6 +561,7 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookParams) => {
   const [strokeDashArray, setStrokeDashArray] =
     useState<number[]>(STROKE_DASH_ARRAY);
 
+  useWindowEvents();
   const { copy, paste } = useClipboard({ canvas });
   const { save, canUndo, canRedo, undo, redo, canvasHistory, setHistoryIndex } =
     useHistory({ canvas });
