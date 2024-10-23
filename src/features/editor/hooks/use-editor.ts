@@ -417,48 +417,60 @@ const buildEditor = ({
     },
     updateFontSize: (newFontSize: number) => {
       canvas.getActiveObjects().forEach((object) => {
-        // @ts-expect-error, Faulty TS library, fontSize exists
-        object.set({ fontSize: newFontSize });
+        if (isTextType(object.type)) {
+          // @ts-expect-error, Faulty TS library, fontSize exists
+          object.set({ fontSize: newFontSize });
+        }
       });
 
       canvas.renderAll();
     },
     updateFontStrikethrough: (strikethroughState: boolean) => {
       canvas.getActiveObjects().forEach((object) => {
-        // @ts-expect-error, Faulty TS library, linethrough exists
-        object.set({ linethrough: strikethroughState });
+        if (isTextType(object.type)) {
+          // @ts-expect-error, Faulty TS library, linethrough exists
+          object.set({ linethrough: strikethroughState });
+        }
       });
 
       canvas.renderAll();
     },
     updateFontStyle: (newFontStyle: FontStyles) => {
       canvas.getActiveObjects().forEach((object) => {
-        // @ts-expect-error, Faulty TS library, fontStyle exists
-        object.set({ fontStyle: newFontStyle });
+        if (isTextType(object.type)) {
+          // @ts-expect-error, Faulty TS library, fontStyle exists
+          object.set({ fontStyle: newFontStyle });
+        }
       });
 
       canvas.renderAll();
     },
     updateFontUnderline: (underlineState: boolean) => {
       canvas.getActiveObjects().forEach((object) => {
-        // @ts-expect-error, Faulty TS library, underline exists
-        object.set({ underline: underlineState });
+        if (isTextType(object.type)) {
+          // @ts-expect-error, Faulty TS library, underline exists
+          object.set({ underline: underlineState });
+        }
       });
 
       canvas.renderAll();
     },
     updateFontWeight: (newFontWeight: number) => {
       canvas.getActiveObjects().forEach((object) => {
-        // @ts-expect-error, Faulty TS library, fontWeight exists
-        object.set({ fontWeight: newFontWeight });
+        if (isTextType(object.type)) {
+          // @ts-expect-error, Faulty TS library, fontWeight exists
+          object.set({ fontWeight: newFontWeight });
+        }
       });
 
       canvas.renderAll();
     },
     updateTextAlign: (alignValue: TextAlign) => {
       canvas.getActiveObjects().forEach((object) => {
-        // @ts-expect-error, Faulty TS library, textAlign exists
-        object.set({ textAlign: alignValue });
+        if (isTextType(object.type)) {
+          // @ts-expect-error, Faulty TS library, textAlign exists
+          object.set({ textAlign: alignValue });
+        }
       });
 
       canvas.renderAll();
