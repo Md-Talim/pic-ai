@@ -1,7 +1,7 @@
-export default function Home() {
-  return (
-    <main>
-      <h1 className="text-4xl font-bold">Pic AI</h1>
-    </main>
-  );
+import { protectServer } from "@/features/auth/utils";
+
+export default async function Home() {
+  await protectServer();
+
+  return <main>You are signed in.</main>;
 }
