@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import Logo from "@/features/editor/components/logo";
+import UserButton from "@/features/editor/components/user-button";
 import { ActiveTool, Editor } from "@/features/editor/types";
 import { cn } from "@/lib/utils";
 import {
@@ -109,7 +110,7 @@ const Navbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
           <p className="text-sm">Saved</p>
         </div>
 
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center justify-center gap-x-4">
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="sm">
@@ -166,6 +167,7 @@ const Navbar = ({ editor, activeTool, onChangeActiveTool }: Props) => {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <UserButton />
         </div>
       </div>
     </nav>
